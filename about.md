@@ -7,7 +7,8 @@ title: About
 
 Team Photo
 
-Individual Bios
+Individual Bios:
+Irene is great!
 
 Roles or Contributions (optional, only if it makes sense to your team)
 
