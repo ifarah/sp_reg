@@ -7,9 +7,9 @@ permalink:        pretty
 # Setup
 title:            Irene's Project
 tagline:          ''
-description:      'A 2021 Data Science for Social Good summer fellowship project at the University of Washington' 
+description:      'A project for CP55' 
 url:              "https://uwescience.github.io"
-baseurl:          "/DSSG-website-template"
+baseurl:          "/t"
 
 
 paginate:         5
@@ -18,4 +18,4 @@ paginate:         5
 version:          0.0.0
 
 github:
-  repo:           https://github.com/uwescience/DSSG-website-template/
+  repo:           https://github.com/ifarah/t
