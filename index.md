@@ -13,6 +13,9 @@ layout: default
 
 **Data Science Lead/s:** 
 
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">&quot;The Surrounds&quot; by AbdouMaliq Simone <a href="https://twitter.com/XazaarAdjame?ref_src=twsrc%5Etfw">@XazaarAdjame</a> offers a new theorisation of the interface of the urban and the political. <br><br>Read the introduction free on the <a href="https://twitter.com/DukePress?ref_src=twsrc%5Etfw">@DukePress</a> website now <a href="https://t.co/8XABGhswUM">https://t.co/8XABGhswUM</a><a href="https://twitter.com/hashtag/BlackStudies?src=hash&amp;ref_src=twsrc%5Etfw">#BlackStudies</a> <a href="https://twitter.com/hashtag/UrbanStudies?src=hash&amp;ref_src=twsrc%5Etfw">#UrbanStudies</a> <a href="https://t.co/Lvk8ra5FKB">pic.twitter.com/Lvk8ra5FKB</a></p>&mdash; The Urban Institute (@Urban_Inst) <a href="https://twitter.com/Urban_Inst/status/1499353810027876356?ref_src=twsrc%5Etfw">March 3, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">New project! <a href="https://twitter.com/Leonardonclt?ref_src=twsrc%5Etfw">@Leonardonclt</a> &amp; <a href="https://twitter.com/SahitiSarva?ref_src=twsrc%5Etfw">@SahitiSarva</a> analyzed more than a decade of headlines from 4 countries to see how women are (mis)represented in news. (1/6)<a href="https://t.co/Kn3nZoRgGW">https://t.co/Kn3nZoRgGW</a> <a href="https://t.co/v1q6AW37OF">pic.twitter.com/v1q6AW37OF</a></p>&mdash; The Pudding (@puddingviz) <a href="https://twitter.com/puddingviz/status/1488949947131215879?ref_src=twsrc%5Etfw">February 2, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 **DSSG Fellows:** 
