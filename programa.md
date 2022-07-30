@@ -38,6 +38,6 @@ Anselin, L. (2003). [Spatial externalities, spatial multipliers, and spatial eco
 * El libro de [Geographic Data Science](https://geographicdata.science/book/intro.html)  utilizando PySAL (explicaciones conceptuales y técnicas en Python).
 * [Mini curso de regresión espacial](https://darribas.org/sdar_mini/index.html) de Dani Arribas-Bel.  
 
-* Para explorar más a profundidad paquetes en R explorar los [R Cheatsheets](https://www.rstudio.com/resources/cheatsheets/) como `dplyr` (manipulación de datos), `sf` (manipulación de datos espaciales), `rmarkdown` (compilación de documentos en R).
-* Notas más a detalle de Luc Anselin, [Spatial Regression Analysis in R
-A Workbook](https://dces.wisc.edu/wp-content/uploads/sites/128/2013/08/W14_Anselin2007.pdf)
+* Para explorar más a profundidad paquetes en R explorar los [*R Cheatsheets*](https://www.rstudio.com/resources/cheatsheets/) como `dplyr` (manipulación de datos), `sf` (manipulación de datos espaciales), `rmarkdown` (compilación de documentos en R).
+* Notas más a detalle de Luc Anselin, [*Spatial Regression Analysis in R:
+A Workbook*](https://dces.wisc.edu/wp-content/uploads/sites/128/2013/08/W14_Anselin2007.pdf)
