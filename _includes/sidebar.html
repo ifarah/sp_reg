@@ -26,8 +26,16 @@
           <a href="{{ '/sesion3' | prepend: site.baseurl }}">Sesión 3</a>
       </div>
       
+      <button class="dropdown-btn">Ejercicios
+          <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-container">
+          <a href="{{ '/ejercicio1' | prepend: site.baseurl }}">Ejercicio 1</a><br/>
+          <a href="{{ '/ejercicio2' | prepend: site.baseurl }}">Ejercicio 2</a><br/>
+          <a href="{{ '/ejercicio3' | prepend: site.baseurl }}">Ejercicio 3</a>
+      </div>
       
-      <a class="sidebar-nav-item {% if page.url == node.url %} active{% endif %}" href="{{ '/about' | prepend: site.baseurl }}">About</a>
+      
 
       <script>
 /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
