@@ -1,24 +1,23 @@
 ---
 layout: page
-title: Motivation
+title: Programa
 ---
+## Programa de estudios
 
-**Questions**
+### Notas
 
-What question(s) are you answering?
-What need are you filling?
+1. **Datos espaciales** 
 
-**Background**
+2. **Exploración de datos (ESDA)** 
 
-Why is this important?
-What work has previously been done?
+3. **Regresión espacial**
 
-**Stakeholders**
 
-Who are the important stakeholders and what has your team done to take them into consideration?
-What are the use cases you’re building for?
+### Ejercicios
 
-**Ethics**
-
-What are the ethical questions you considered as a team?
-How are you addressing them in your work?
+1. **GIS**
+    * R: Manipulación de datos espaciales
+2. **ESDA**
+    * R: Explorar datos
+3. **Regresión espacial** 
+    * R: Ejercicios
