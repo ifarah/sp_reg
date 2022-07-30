@@ -7,7 +7,7 @@ layout: default
 
 # Introducción a la Econometría Espacial Aplicada
 
-![](https://github.com/ifarah/t/blob/main/assets/img/head.png)
+![](https://github.com/ifarah/sp_reg/blob/main/assets/img/head.png)
 
 **Descripción del taller:** 
 
