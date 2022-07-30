@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Method 2
+title: Sesión 2
 ---
 
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
