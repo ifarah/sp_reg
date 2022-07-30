@@ -3,7 +3,7 @@ layout: default
 ---
 
 
-<img src="{{ site.url }}{{ site.baseurl }}/assets/img/eScience.png">
+<img src="{{ site.url }}{{ site.baseurl }}/assets/img/head.png">
 
 # Introducción a la Econometría Espacial Aplicada
 
