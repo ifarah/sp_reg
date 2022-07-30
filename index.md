@@ -6,6 +6,8 @@ layout: default
 <img src="{{ site.url }}{{ site.baseurl }}/assets/img/head.png">
 
 <img src="https://github.com/ifarah/t/blob/main/assets/img/head.png width="600">
+                                                                               
+![](https://github.com/ifarah/t/blob/main/assets/img/head.png)
 
 # Introducción a la Econometría Espacial Aplicada
 
