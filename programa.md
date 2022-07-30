@@ -2,14 +2,13 @@
 layout: page
 title: Lecturas y Recursos
 ---
+# Programa
 
-## Lecturas y recursos (en inglés):
+## Lecturas por sesión
 
-### Texto principal para el taller:  
+**Texto principal para el taller:**  
 
 * **Anselin, L., & Rey, S. J.** (2014). Modern spatial econometrics in practice: A guide to GeoDa, GeoDaSpace and PySAL. GeoDa Press LLC.
-
-### Lecturas por sesión
 
 #### Sesión I: Datos espaciales y exploración de datos
 
