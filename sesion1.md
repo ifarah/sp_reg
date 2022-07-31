@@ -21,7 +21,7 @@ hola
 
 como
 
-![formula](https://render.githubusercontent.com/render/math?math=[Wy]_i =  w_{i,1}y_1 + w_{i,2}y_2 + w_{i,3}y_3 + w_{i,n}y_n)
+![formula](https://render.githubusercontent.com/render/math?math=[Wy]_i=w_{i,1}y_1 + w_{i,2}y_2 + w_{i,3}y_3 + w_{i,n}y_n)
 
 
 
