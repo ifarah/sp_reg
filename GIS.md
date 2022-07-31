@@ -13,5 +13,6 @@ title: Ejercicios GIS
 * Verificar y transformar proyecciones.
 * Agregar puntos a polígonos usando `st_intersects` (`sf`).
 * Crear mapa para verificar resultado.
+* Exportar shapefile con `st_write` (`sf`).
 
 
