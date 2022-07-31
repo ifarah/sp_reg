@@ -5,7 +5,7 @@ title: Sesión 1
 
 ## GIS + Intro
 
-[Descargar - [RMarkdown](https://github.com/ifarah/t/blob/main/sesion1.Rmd)]
+[Descargar - [RMarkdown](https://github.com/ifarah/t/blob/main/Rmd/sesiones/sesion1.Rmd)]
 
 **Importancia de las proyecciones:**
 
