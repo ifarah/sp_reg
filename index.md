@@ -4,12 +4,13 @@ title: |
   ![](assets/img/head.png){width=1in} 
 ---
 
+![](https://github.com/ifarah/t/blob/main/assets/img/head.png)
                                                                                
 <img src="{{ site.url }}{{ site.baseurl }}/assets/img/head.png">
 
 # Introducción a la Econometría Espacial Aplicada
 
-![](https://github.com/ifarah/sp_reg/blob/main/assets/img/head.png)
+
 
 **Descripción del taller:** 
 
