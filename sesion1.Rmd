@@ -1,9 +1,9 @@
 ---
-title: "Introducción a la Econometría Espacial Aplicada -GIS + Intro"
-author: "Irene Farah"
-date: "Verano 2022"
-output: html_document
+layout: page
+title: Sesión 2
 ---
+
+# Introducción a la Econometría Espacial Aplicada -GIS + Intro
 
 **Importancia de las proyecciones:**  
 
