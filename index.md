@@ -1,7 +1,7 @@
 ---
 layout: default
 title: |
-  ![](assets/img/head.png){width=1in} 
+  Taller - Introducción a Econometría Aplicada
 ---
 
 ![](https://github.com/ifarah/t/blob/main/assets/img/head.png)
