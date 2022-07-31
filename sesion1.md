@@ -147,7 +147,8 @@ Para estudiar distintos patrones espaciales, la definición de pesos espaciales 
 
 ### Estadísticas de autocorrelación espacial global  
 
-Ejemplos: Indice de Moran, Geary C, Getis-Ord, entre otras (mezclar similitud de atributos con pesos espaciales).
+Ejemplos: Indice de Moran, Geary C, Getis-Ord, entre otras (mezclar similitud de atributos con pesos espaciales).  
+
 $$ \sum_{ij}= w_{ij}f(x_ix_j) $$ 
 
 **Variable espacialmente rezagada**  
