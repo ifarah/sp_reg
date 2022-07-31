@@ -6,38 +6,12 @@ hola
 
 <img src="https://render.githubusercontent.com/render/math?math=e^{i \pi} = -1">
 
-
-<img src="https://render.githubusercontent.com/render/math?math={[Wy]_i =  w_{i,1}y_1 + w_{i,2}y_2 + w_{i,3}y_3 + w_{i,n}y_n}#gh-light-mode-only">. 
-
 bebe
-
-<img src="https://render.githubusercontent.com/render/math?math={\color{white}\L = -\sum_{j}[T_{j}ln(O_{j})] + \frac{\lambda W_{ij}^{2}}{2}}#gh-dark-mode-only">
-
-de luz
 
 
 <img src="https://render.githubusercontent.com/render/math?math={\L = -\sum_{j}[T_{j}ln(O_{j})] + \frac{\lambda W_{ij}^{2}}{2} \rightarrow \text{one-hot} \rightarrow -ln(O_{c}) + \frac{\lambda W_{ij}^{2}}{2}}#gh-light-mode-only">. 
 
-carnal
 
-<img src="https://render.githubusercontent.com/render/math?math={\color{white}\L = -\sum_{j}[T_{j}ln(O_{j})] + \frac{\lambda W_{ij}^{2}}{2} \rightarrow \text{one-hot} \rightarrow -ln(O_{c}) + \frac{\lambda W_{ij}^{2}}{2}}#gh-dark-mode-only">
-
-luz
-
-![formula](https://render.githubusercontent.com/render/math?math=[Wy]_i =  w_{i,1}y_1+3)
-
-bebe
-
-<img src="https://render.githubusercontent.com/render/math?math={\L = -\sum_{j}[T_{j}ln(O_{j})]}#gh-light-mode-only">. 
-
-que
-
-
-```math
-\sqrt{3}
-```
-
-$\sqrt{3x-1}+(1+x)^2$
 
 ## GIS + Intro
 
