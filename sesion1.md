@@ -19,8 +19,13 @@ carnal
 
 <img src="https://render.githubusercontent.com/render/math?math={\color{white}\L = -\sum_{j}[T_{j}ln(O_{j})] + \frac{\lambda W_{ij}^{2}}{2} \rightarrow \text{one-hot} \rightarrow -ln(O_{c}) + \frac{\lambda W_{ij}^{2}}{2}}#gh-dark-mode-only">
 
+luz
+
 ![formula](https://render.githubusercontent.com/render/math?math=[Wy]_i =  w_{i,1}y_1+3)
 
+bebe
+
+<img src="https://render.githubusercontent.com/render/math?math={\L = -\sum_{j}[T_{j}ln(O_{j})]}#gh-light-mode-only">. 
 
 ## GIS + Intro
 
