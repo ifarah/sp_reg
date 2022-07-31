@@ -3,7 +3,7 @@ layout: page
 title: Ejercicios ESDA
 ---
 
-[Descargar - [RMarkdown](https://github.com/ifarah/t/blob/main/ejercicio_ESDA.Rmd)]
+[Descargar - [RMarkdown](https://github.com/ifarah/t/blob/main/Rmd/ejercicios/ejercicio_ESDA.Rmd)]
 
 * Leer datos espaciales (`sf`). 
 * Verificar proyección.  
