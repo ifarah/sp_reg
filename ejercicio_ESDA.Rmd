@@ -34,9 +34,9 @@ library(mapview) # bueno para explorar pero dificil ajustar
 
 Primero usar la libreria de sf para mapear y explorar nuestros datos
 ```{r Usar sf}
-municipios = st_read("./data/mx_city_metro.shp")
+muni = st_read("./data/mx_city_metro.shp")
 ```
-Pueden usar `attach(municipios)` para referirse a las variables por nombre, pero no lo hare en este caso.
+Pueden usar `attach(muni)` para referirse a las variables por nombre, pero no lo hare en este caso.
 
 * **Obligatorios**: 
   - `shp`: Shapefile: archivo principal que guarda la geometría
@@ -108,11 +108,11 @@ Formato puede ser punto, línea, polígono.
 **Ver proyecciones de los datos:**  
 
 ```{r Ver proyeccion}
-st_crs(municipios)
+st_crs(muni)
 ```
 
 ```{r Transformar proyeccion}
-municipios_4326 = st_transform(municipios, 4326)
+municipios_4326 = st_transform(muni, 4326)
 st_crs(municipios_4326)
 
 ```
@@ -234,16 +234,6 @@ alim = tm_shape(municipios_4326) +
             legend.bg.alpha = 1)
 
 tmap_arrange(pe, ping1, educ, salud, sbv, alim, ncol=3, nrow=2)
-```
-
-
-# Importar datos para análisis espacial
-```{r importar datos}
-#Importar datos espaciales 
-muni <- st_read("./data/mx_city_metro.shp")
-
-# Usando rgdal
-head(muni)
 ```
 
 
