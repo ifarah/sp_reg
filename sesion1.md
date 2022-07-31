@@ -113,8 +113,9 @@ características intrínsecas (heterogeneidad).
 
 **Autocorrelación Espacial**
 
-Hipótesis nula: Aleatoriedad espacial. Queremos rechazar la hipótesis
-nula.
+Hipótesis nula: Aleatoriedad espacial.  
+
+Queremos rechazar la hipótesis nula.
 
 La base de todo:  
 *Primera Ley de Geografía de Tobler:* Todo depende de todo lo demás,
@@ -192,6 +193,11 @@ similitud de atributos con pesos espaciales).
 
 Se define por el promedio de los valores de los vecinos.
 \[*W**y*\] = *w*<sub>*i*, 1</sub>*y*<sub>1</sub> + *w*<sub>*i*, 2</sub>*y*<sub>2</sub> + ... + *w*<sub>*i*, *n*</sub>*y*<sub>*n*</sub>
+
+hola
+
+<img src="https://render.githubusercontent.com/render/math?math=[Wy]_i =  w_{i,1}y_1 + w_{i,2}y_2 + w_{i,3}y_3 + w_{i,n}y_n">. 
+
 
 **Moran’s I (la estadística más usada)**: Los mapas muestran patrones de
 distribución espacial, dando indicios de presencia de autocorrelación
