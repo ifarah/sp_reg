@@ -3,7 +3,6 @@ layout: page
 title: Sesión 1
 ---
 
-# Introducción a la Econometría Espacial Aplicada  
 ## GIS + Intro
 
 [Download - [RMarkdown](https://github.com/ifarah/t/blob/main/sesion1.Rmd)]
