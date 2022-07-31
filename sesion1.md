@@ -3,6 +3,15 @@ layout: page
 title: Sesión 1
 ---
 
+**[RMarkdown** - [Rmd](../revealjs/intro_esda1.html)**]**
+
+This 1.5h session introduces the course by:
+
+* Presenting spatial data and its different manifestations
+* Motivating spatial analysis 
+* Introducing the concept of spatial dependence and spatial autocorrelation
+* Stressing the differences between spatial dependence and spatial
+  heterogeneity
 
 **Importancia de las proyecciones:**  
 
