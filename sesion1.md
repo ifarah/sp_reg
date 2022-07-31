@@ -16,7 +16,7 @@ title: Sesión 1
 
 -   Diferencia entre SRC proyectados y no proyectados
 
-<img src="[assets/img/proyecciones.png](https://github.com/ifarah/t/blob/main/assets/img/proyecciones.png)" width="600">
+<img src="/assets/img/proyecciones.png" width="600">
 
 
 ![](https://github.com/ifarah/t/blob/main/assets/img/proyecciones.png)
