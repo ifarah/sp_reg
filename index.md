@@ -10,6 +10,7 @@ title: |
 
 # Introducción a la Econometría Espacial Aplicada
 
+![ScreenShot](https://raw.githubusercontent.com/assets/img/head.png)
 
 
 **Descripción del taller:** 
