@@ -34,7 +34,7 @@ que
 
 pasa
 
-<img src="https://render.githubusercontent.com/render/math?math={\L = -\sum_{j}[T_{j}ln(O_{j})] + \frac{\lambda W_{ij}^{2}}{2}}#gh-light-mode-only">. 
+<img src="https://render.githubusercontent.com/render/math?math={\Wy = -\sum_{j}[T_{j}ln(O_{j})] + \frac{\lambda W_{ij}^{2}}{2}}#gh-light-mode-only">. 
 
 aqui
 
