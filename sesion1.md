@@ -3,6 +3,28 @@ layout: page
 title: Sesión 1
 ---
 
+hola
+\[*W**y*\]<sub>*i*</sub> = *w*<sub>*i*, 1</sub>*y*<sub>1</sub> + *w*<sub>*i*, 2</sub>*y*<sub>2</sub> + *w*<sub>*i*, 3</sub>*y*<sub>3</sub> + *w*<sub>*i*, *n*</sub>*y*<sub>*n*</sub>
+
+  como
+
+$$\[Wy\]\_i = \\sum\_{j=1}^{n} w\_{i,j}y\_j$$
+  
+estas
+  
+![\Large x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}](https://latex.codecogs.com/svg.latex?\Large&space;\[Wy\]\_i = \\sum\_{j=1}^{n} w\_{i,j}y\_j)   
+
+hola
+
+<img src="https://render.githubusercontent.com/render/math?math=[Wy]_i =  w_{i,1}y_1 + w_{i,2}y_2 + w_{i,3}y_3 + w_{i,n}y_n">. 
+
+como
+
+![formula](https://render.githubusercontent.com/render/math?math=e^{i \pi} = -1)
+
+
+
+
 ## GIS + Intro
 
 [Descargar - [RMarkdown](https://github.com/ifarah/t/blob/main/Rmd/sesiones/sesion1.Rmd)]
