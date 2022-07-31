@@ -13,4 +13,3 @@ title: Ejercicios ESDA
 * Crear mapas de autocorrelación local (LISAs).  
 * Crear regímenes espaciales para incorporar heterogeneidad espacial.  
 
-{% include_relative ejercicios_ESDA.html %}
