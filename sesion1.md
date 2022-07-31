@@ -6,7 +6,7 @@ title: Sesión 1
 # Introducción a la Econometría Espacial Aplicada  
 ## GIS + Intro
 
-[RMarkdown](https://github.com/ifarah/t/blob/main/sesion1.Rmd)
+[Download [RMarkdown](https://github.com/ifarah/t/blob/main/sesion1.Rmd)]
 
 **Importancia de las proyecciones:**  
 
