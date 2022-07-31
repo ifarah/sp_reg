@@ -1,8 +1,7 @@
 ---
 layout: page
-title: Lecturas y Recursos
+title: Programa
 ---
-# Programa
 
 ## Lecturas por sesión
 
