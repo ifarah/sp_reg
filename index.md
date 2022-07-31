@@ -1,5 +1,7 @@
 ---
 layout: default
+title: |
+  ![](assets/img/head.png){width=1in} 
 ---
 
                                                                                
