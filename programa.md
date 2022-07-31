@@ -28,7 +28,7 @@ Anselin, L. (2003). [Spatial externalities, spatial multipliers, and spatial eco
 
 * **Bivand, R.; Piras, G.** (2015). [Comparing Implementations of Estimation Methods for Spatial Econometrics.](https://www.jstatsoft.org/article/view/v063i18) Journal of Statistical Software, 63(18): 1-36.  
 * **Le Gallo, J.** (2021) [Cross-Section Spatial Regression Models](http://link.springer.com/referenceworkentry/10.1007/978-3-642-23430-9_85). In Fischer, M. M. and Nijkamp, P., editors, Handbook of Regional Science. Springer-Verlag Berlin Heidelberg.  
-* **Pinkse, J. and Slade, M.** (2010). [The Future of Spatial Econometrics(http://onlinelibrary.wiley.com/doi/10.1111/j.1467-9787.2009.00645.x/citedby). Journal of Regional Science, 50(1): 103-117.
+* **Pinkse, J. and Slade, M.** (2010). [The Future of Spatial Econometrics](http://onlinelibrary.wiley.com/doi/10.1111/j.1467-9787.2009.00645.x/citedby). Journal of Regional Science, 50(1): 103-117.
 
 
 ### Recursos disponibles:
