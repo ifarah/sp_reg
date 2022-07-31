@@ -35,7 +35,10 @@ en sus proyectos.
     tamaño. Cada celda contine un valor) (por ejemplo: geotiff, netCDF,
     DEM)
 
-<img src="assets/img/vector_raster.png" width="400">
+<p>
+    <img src="assets/img/vector_raster.png" width="500" />
+</p>
+
 
 **¿Qué es el análisis espacial?**  
 - Datos geospaciales: ubicación + valores (atributos).  
