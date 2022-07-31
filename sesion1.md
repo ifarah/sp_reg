@@ -34,6 +34,8 @@ que
 \sqrt{3}
 ```
 
+$\sqrt{3x-1}+(1+x)^2$
+
 ## GIS + Intro
 
 [Descargar - [RMarkdown](https://github.com/ifarah/t/blob/main/Rmd/sesiones/sesion1.Rmd)]
