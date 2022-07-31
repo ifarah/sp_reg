@@ -8,9 +8,6 @@ title: |
     <img src="assets/img/head.png" width="1000" height="350" />
 </p>
 
-# Introducción a la Econometría Espacial Aplicada
-
-
 
 **Descripción del taller:** 
 
