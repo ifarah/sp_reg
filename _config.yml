@@ -7,7 +7,7 @@ permalink:        pretty
 # Setup
 title:            Introducción a la Econometría Espacial Aplicada
 tagline:          ''
-description:      'Taller' 
+description:      'Taller (usando R)' 
 url:              "https://uwescience.github.io"
 baseurl:          "/t"
 
