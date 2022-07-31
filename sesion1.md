@@ -35,7 +35,7 @@ en sus proyectos.
     DEM)
 
 <p>
-    <img src="../assets/img/vector_raster.png" width="400" />
+    <img src="../assets/img/vector_raster.png" width="300" />
 </p>
 
 
