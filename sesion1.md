@@ -2,17 +2,12 @@
 layout: page
 title: Sesión 1
 ---
+hola
 
-\begin{equation}
-\begin{aligned}
-  {X}_{0} (does not always work)
-  {X}\_{0} (works)
-  X_0 (works)
-  \hat{a}_{b} (does not always work)
-  \hat{a}_b (works)
-  \hat{a}_{b+c} (works)
-\end{aligned}
-\end{equation
+<img src="https://render.githubusercontent.com/render/math?math={[Wy]_i =  w_{i,1}y_1 + w_{i,2}y_2 + w_{i,3}y_3 + w_{i,n}y_n}#gh-light-mode-only">. 
+
+bebe
+
 
 
 <img src="https://render.githubusercontent.com/render/math?math={\L = -\sum_{j}[T_{j}ln(O_{j})] + \frac{\lambda W_{ij}^{2}}{2} \rightarrow \text{one-hot} \rightarrow -ln(O_{c}) + \frac{\lambda W_{ij}^{2}}{2}}#gh-light-mode-only">. 
