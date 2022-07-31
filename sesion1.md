@@ -94,7 +94,7 @@ El problema con cuantificar los efectos espaciales es que es imposible saber si 
 
 **Autocorrelación Espacial**. 
 
-Hipótesis nula: Aleatoriedad espacial is absence of any pattern
+Hipótesis nula: Aleatoriedad espacial.
 Queremos rechazar la hipótesis nula.
 
 La base de todo:  
