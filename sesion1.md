@@ -83,7 +83,7 @@ Tratamiento explícito de la ubicación:
   Soy el vecino de mi vecino. Estimar la interacción entre las ubicaciones de forma simultánea.
   Se puede estimar mediante la variable espacialmente rezagada, *spatial lag* ($[Wy]_i$) que es el promedio de los valores de los vecinos de una observación.).
   
-$$[Wy]_i =  w_{i,1}y_1 + w_{i,2}y_2 + w_{i,3}y_3 + w_{i,n}y_n$$  
+<img src="https://render.githubusercontent.com/render/math?math=[Wy]_i =  w_{i,1}y_1 + w_{i,2}y_2 + w_{i,3}y_3 + w_{i,n}y_n">  
 
 o bien,
 
