@@ -110,7 +110,11 @@ o
 
 $$\[Wy\]\_i = \\sum\_{j=1}^{n} w\_{i,j}y\_j$$
 
-![\Large x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}](https://latex.codecogs.com/svg.latex?\Large&space;\[Wy\]\_i = \\sum\_{j=1}^{n} w\_{i,j}y\_j) 
+![\Large x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}](https://latex.codecogs.com/svg.latex?\Large&space;\[Wy\]\_i = \\sum\_{j=1}^{n} w\_{i,j}y\_j)   
+
+hola
+
+<img src="https://render.githubusercontent.com/render/math?math=[Wy]_i =  w_{i,1}y_1 + w_{i,2}y_2 + w_{i,3}y_3 + w_{i,n}y_n">. 
 
 
 El problema con cuantificar los efectos espaciales es que es imposible
