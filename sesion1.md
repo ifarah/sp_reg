@@ -16,7 +16,7 @@ title: Sesión 1
 -   Diferencia entre SRC proyectados y no proyectados
 
 <p>
-    <img src="../assets/img/proyecciones.png" width="700" height="300" />
+    <img src="../assets/img/proyecciones.png" width="600" />
 </p>
 
 -   Unidades (metros, pies (ft), para estimar áreas o distancias) *vs*
@@ -35,7 +35,7 @@ en sus proyectos.
     DEM)
 
 <p>
-    <img src="../assets/img/vector_raster.png" width="500" />
+    <img src="../assets/img/vector_raster.png" width="400" />
 </p>
 
 
