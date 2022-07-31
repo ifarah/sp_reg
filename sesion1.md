@@ -110,6 +110,9 @@ o
 
 $$\[Wy\]\_i = \\sum\_{j=1}^{n} w\_{i,j}y\_j$$
 
+![\Large x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}](https://latex.codecogs.com/svg.latex?\Large&space;\[Wy\]\_i = \\sum\_{j=1}^{n} w\_{i,j}y\_j) 
+
+
 El problema con cuantificar los efectos espaciales es que es imposible
 saber si los valores vienen de interacción (dependencia) o de
 características intrínsecas (heterogeneidad).
