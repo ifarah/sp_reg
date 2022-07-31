@@ -32,6 +32,12 @@ que
 
 <img src="https://render.githubusercontent.com/render/math?math={\L = -\sum_{j}[T_{j}ln(O_{j})] + \frac{\lambda W_{ij}^{2}}{2}}#gh-light-mode-only">. 
 
+pasa
+
+<img src="https://render.githubusercontent.com/render/math?math={\L = -\sum_{j}[T_{j}ln(O_{j})] +  \sum_{j=1}^{n} w_{i,j}y_j + \frac{\lambda W_{ij}^{2}}{2}}#gh-light-mode-only">. 
+
+aqui
+
 ## GIS + Intro
 
 [Descargar - [RMarkdown](https://github.com/ifarah/t/blob/main/Rmd/sesiones/sesion1.Rmd)]
