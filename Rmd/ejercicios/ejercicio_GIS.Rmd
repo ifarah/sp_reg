@@ -1,0 +1,125 @@
+---
+title: "Introducción a la Econometría Espacial Aplicada - Ejercicios GIS"
+author: "Irene Farah"
+date: "Verano 2022"
+output: html_document
+---
+```{r biblioteca, echo=FALSE, include=FALSE}
+library(data.table)
+library(dplyr)
+library(sf)
+library(ggplot2)
+library(tmap)
+```
+
+### Agregación de puntos por polígonos
+
+Es común que tengamos datos a nivel punto y los queramos agregar a una escala mayor. Generalmente, tenemos datos socioeconómicos a nivel municipal. Por lo tanto, queremos agregar la información a nivel punto a los polígonos. De esta forma, podemos generar variables para incoporar en nuestras regresiones espaciales.  
+
+Agregar el número de tiendas que existen dentro de un polígono. En este caso, cuántas tiendas de frutas y verduras existen por municipio en la Zona Metropolitana del Valle de México (incluye Ciudad de México, 59 municipios del estado de México y 1 municipio del estado de Hidalgo).
+
+Vamos a utilizar `sf` para leer los datos espaciales, hacer transformaciones de proyecciones y hacer intersección entre las tiendas (puntos) y los municipios (polígonos). Primero, para analizar los datos de las tiendas, utilizaremos `dplyr`, mostrando algunos comandos para explorar y filtrar los datos y después con `sf` pasar de una tabla csv (no espacial, pero conteniendo las coordenadas de los puntos) a una tabla sf (espacial).
+
+```{r importar datos y pesos, include=FALSE, echo=FALSE, warning=FALSE}
+#Importar datos espaciales
+muni = st_read("./data/mx_city_metro.shp")
+```
+
+Bajar datos de comercio al por menor del DENUE (Directorio Estadístico Nacional de Unidades Económicas) de la [página del INEGI](https://www.inegi.org.mx/app/descarga/default.html) (Instituto Nacional de Estadística y Geografía) de México.
+
+```{r Leer datos de comercio al por menor}
+#fread lee csv mucho más rápido (data.table)
+df=fread("data/denue_inegi_46112-46311_.csv")%>%
+  filter(cve_ent==9 | cve_ent==15 | cve_ent==13)# filtrar por entidad federativa (cdmx, hidalgo, edomex)
+
+head(df)
+```
+
+
+Primero tenemos que examinar el tipo de tiendas en nuestros datos para filtrar por comercio al por menor de frutas y verduras.  
+
+````{r Tipo de tiendas en los datos - codigos SCIAN}
+df%>%
+  group_by(codigo_act)%>%
+  summarise(n=n()) #Ver que tipo de tiendas hay dentro del comercio al por menor
+
+```
+
+Según el código [SCIAN](https://www.inegi.org.mx/contenidos/app/scian/tablaxiv.pdf):  
+
+461121: Comercio al por menor de carnes rojas  
+461122: Comercio al por menor de carne de aves  
+461123: Comercio al por menor de pescados y mariscos  
+461130 Comercio al por menor de frutas y verduras frescas  
+461140: Comercio al por menor de semillas y granos alimenticios, especias y chiles secos  
+461150: Comercio al por menor de leche, otros productos lácteos y embutidos  
+461160: Comercio al por menor de dulces y materias primas para repostería  
+461170: Comercio al por menor de paletas de hielo y helados  
+461190: Comercio al por menor de otros alimentos  
+461211: Comercio al por menor de vinos y licores  
+461212: Comercio al por menor de cerveza  
+461213: Comercio al por menor de bebidas no alcohólicas y hielo  
+461220: Comercio al por menor de cigarros, puros y tabaco  
+462111: Comercio al por menor en supermercados  
+462112: Comercio al por menor en minisupers  
+462210: Comercio al por menor en tiendas departamentales  
+463111: Comercio al por menor de telas  
+463112: Comercio al por menor de blancos  
+463113: Comercio al por menor de artículos de mercería y bonetería
+
+```{r Filtrar por frutas y verduras}
+fv= df%>%
+  filter(codigo_act==461130)
+
+head(fv)
+```
+
+Ya que tenemos los datos que queremos, los vamos a convertir de una tabla no espacial a una tabla espacial (sf). De esta forma podemos hacer una intersección entre los puntos y los polígonos. Noten cómo la conversión agrega la columna `geometry` al final de la tabla.
+
+```{r De csv a sf}
+fv_sf = st_as_sf(df,               # nombre tabla
+                     coords = c('longitud', 'latitud'),    # columnas con long y lat
+                     crs = 4326, remove = FALSE)              #  CRS, con codigo EPSG
+
+head(fv_sf)
+```
+Para verificar que tanto puntos como polígonos están en la misma proyección, verificar sus SRC (Sistema de Referencia de Coordenadas) con `st_crs.` Si están en SRC distintas, usar `st_transform`.
+
+```{r Verificar SRC}
+st_crs(muni)
+
+st_crs(fv_sf)
+```
+
+```{r Transformar SRC}
+municipios_4326 = st_transform(muni, 4326)
+st_crs(municipios_4326)
+```
+
+
+Para estar seguros de nuestros datos, mapeamos los municipios y las tiendas. Noten que muchas tiendas están fuera de nuestro polígono de interés porque incluímos municipios de los estados que no se encuentran dentro de la Zona Metropolitana del Valle de México.
+
+```{r Mapa de las tiendas de frutas y verduras}
+plot(municipios_4326$geometry)
+plot(fv_sf$geometry, pch=20, col="red", size=.5, add=T)
+```
+
+
+```{r Agregar puntos a poligonos}
+#Numero de abarrotes por municipio
+municipios_4326$sum_fv <- lengths(st_intersects(municipios_4326, fv_sf))
+```
+
+```{r Mapear}
+tm_shape(municipios_4326) + 
+  tm_polygons(col = 'sum_fv',
+              border.col = 'darkgreen', 
+              alpha = 0.5) 
+
+ggplot(municipios_4326, aes(fill = sum_fv)) + 
+  geom_sf() + 
+  scale_fill_viridis_c() +
+  theme_minimal() + 
+  labs(title = "Concentración de frutas y verduras en la ZMVM")
+
+```
