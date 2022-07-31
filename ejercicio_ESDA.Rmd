@@ -136,7 +136,7 @@ mapview(municipios_4326, zcol = 'ppov_20')
 
 # Agregar los dos
 mapview(municipios_4326, zcol = 'ppov_20') +
-  mapview(municipios, color = 'red', alpha.regions = 0, legend=FALSE)
+  mapview(muni, color = 'red', alpha.regions = 0, legend=FALSE)
 ```
 
 
@@ -578,7 +578,7 @@ Imponer estructura de forma discreta (regímenes) o continua (smoothing, GWR - r
 ```{r dummy}
 #Crear una variable dicotómica que sea 1 si el municipio es parte de la Ciudad de México y 0 si no.
 muni$cdmx= ifelse(muni$state=="09", 1, 0)
-municipios_4326$cdmx= ifelse(municipios$state=="09", 1, 0)
+municipios_4326$cdmx= ifelse(municipios_4326$state=="09", 1, 0)
 
 # Ejemplo de manipulación de datos
 #municipios_4326%>%group_by(cdmx)%>%summarise(n=n())
