@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Sesión 2
+title: Sesión 1
 ---
 
 # Introducción a la Econometría Espacial Aplicada -GIS + Intro
