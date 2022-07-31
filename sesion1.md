@@ -16,7 +16,7 @@ title: Sesión 1
 -   Diferencia entre SRC proyectados y no proyectados
 
 <p>
-    <img src="../assets/img/proyecciones.png" width="800" height="300" />
+    <img src="../assets/img/proyecciones.png" width="700" height="300" />
 </p>
 
 -   Unidades (metros, pies (ft), para estimar áreas o distancias) *vs*
@@ -35,7 +35,7 @@ en sus proyectos.
     DEM)
 
 <p>
-    <img src="assets/img/vector_raster.png" width="500" />
+    <img src="../assets/img/vector_raster.png" width="500" />
 </p>
 
 
@@ -50,15 +50,15 @@ invariance*)
 
 #### Distribución espacial
 
-<img src="assets/img/mapa_pov.png" width="600">
+<img src="../assets/img/mapa_pov.png" width="600">
 
 #### Distribución no espacial
 
-<img src="assets/img/hist_pov.png" width="600">
+<img src="../assets/img/hist_pov.png" width="600">
 
 #### Autocorrelación espacial (Índice de Moran)
 
-<img src="assets/img/moran_pov.png" width="600">
+<img src="../assets/img/moran_pov.png" width="600">
 
 **¿Qué es la econometría espacial?**  
 Tratamiento explícito de la ubicación:  
@@ -93,13 +93,13 @@ datos mediante interpolación.
 -   *Heterogeneidad espacial*  
     Características intrísecas distribuídas de forma desigual en el
     espacio.  
-    Diferencias estructurales en los datos (cambian los coeficientes
+    Diferencias **estructurales** en los datos (cambian los coeficientes
     según la ubicación - structural breaks). Por ejemplo, diferencias
     entre el norte y el sur del país.
 
 -   *Dependencia espacial*  
     Interacción entre los vecinos.  
-    Soy el vecino de mi vecino. Estimar la interacción entre las
+    Soy el vecino de mi vecino. Estimar la **interacción** entre las
     ubicaciones de forma simultánea. Se puede estimar mediante la
     variable espacialmente rezagada, *spatial lag*
     (\[*W**y*\]<sub>*i*</sub>) que es el promedio de los valores de los
@@ -143,16 +143,16 @@ espaciales (*Spatial Weights*), *w*<sub>*i*, *j*</sub>
 - Bishop (alfil: vértices)  
 - Pesos de distinto orden
 
-<img src="assets/img/pesos.png" width="400">
+<img src="../assets/img/pesos.png" width="400">
 
 **2. Distancia (puntos)**  
 - KNN (k vecinos más cercanos) - Distancia
 
 ### Ejemplos de vecindad reina
 
-<img src="assets/img/connected.png" width="600">
+<img src="../assets/img/connected.png" width="600">
 
-<img src="assets/img/matrix.png" width="600">
+<img src="../assets/img/matrix.png" width="600">
 
 Es importante que la matriz tenga muchos ceros (matriz dispersa). *A
 priori* estamos definiendo la interacción (puede ser un problema, por lo
@@ -256,7 +256,7 @@ tienen patrones de aleatoriedad espacial. Sin embargo, no muestran la
 La heterogeneidad espacial es cuando diferencias espaciales son una
 característica intrínseca de los datos.
 
-Se puede imponer estructura de forma discreta (regímenes) o continua
+Se puede imponer estructura de forma discreta (creando regímenes espaciales mediante variables dicotómicas o categóricas) o continua
 (smoothing, GWR - regresión geográficamente ponderada).
 
 ### Bibliografía
