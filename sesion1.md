@@ -6,7 +6,7 @@ title: Sesión 1
 # Introducción a la Econometría Espacial Aplicada  
 ## GIS + Intro
 
-[Download [RMarkdown](https://github.com/ifarah/t/blob/main/sesion1.Rmd)]
+[Download - [RMarkdown](https://github.com/ifarah/t/blob/main/sesion1.Rmd)]
 
 **Importancia de las proyecciones:**
 
@@ -16,7 +16,10 @@ title: Sesión 1
 
 -   Diferencia entre SRC proyectados y no proyectados
 
-<img src="assets/img/proyecciones.png" width="600">
+<img src="[assets/img/proyecciones.png](https://github.com/ifarah/t/blob/main/assets/img/proyecciones.png)" width="600">
+
+
+![](https://github.com/ifarah/t/blob/main/assets/img/proyecciones.png)
 
 -   Unidades (metros, pies (ft), para estimar áreas o distancias) *vs*
     Latitud y longitud (WGS84 (EPSG: 4326))
