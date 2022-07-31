@@ -13,7 +13,7 @@ title: |
 ![ScreenShot](https://raw.githubusercontent.com/assets/img/head.png)
 
 <p>
-    <img src="head.png" width="220" height="240" />
+    <img src="assets/img/head.png" width="220" height="240" />
 </p>
 
 **Descripción del taller:** 
