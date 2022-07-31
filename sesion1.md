@@ -16,10 +16,9 @@ title: Sesión 1
 
 -   Diferencia entre SRC proyectados y no proyectados
 
-<img src="/assets/img/proyecciones.png" width="600">
-
-
-![](https://github.com/ifarah/t/blob/main/assets/img/proyecciones.png)
+<p>
+    <img src="assets/img/proyecciones.png" width="950" height="400" />
+</p>
 
 -   Unidades (metros, pies (ft), para estimar áreas o distancias) *vs*
     Latitud y longitud (WGS84 (EPSG: 4326))
