@@ -15,5 +15,5 @@ title: Ejercicios GIS
 * Crear mapa para verificar resultado.
 * Exportar shapefile con `st_write` (`sf`).
 
-<embed src="https://github.com/ifarah/t/blob/main/ejercicio_GIS.html" type="application/html">
+<embed src="https://github.com/ifarah/t/blob/main/ejercicio_GIS.pdf" type="application/pdf">
 
