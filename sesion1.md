@@ -16,7 +16,7 @@ title: Sesión 1
 -   Diferencia entre SRC proyectados y no proyectados
 
 <p>
-    <img src="../assets/img/proyecciones.png" width="600" />
+    <img src="../assets/img/proyecciones.png" width="500" />
 </p>
 
 -   Unidades (metros, pies (ft), para estimar áreas o distancias) *vs*
@@ -105,16 +105,6 @@ datos mediante interpolación.
     (\[*W**y*\]<sub>*i*</sub>) que es el promedio de los valores de los
     vecinos de una observación.).
 
-\[*W**y*\]<sub>*i*</sub> = *w*<sub>*i*, 1</sub>*y*<sub>1</sub> + *w*<sub>*i*, 2</sub>*y*<sub>2</sub> + *w*<sub>*i*, 3</sub>*y*<sub>3</sub> + *w*<sub>*i*, *n*</sub>*y*<sub>*n*</sub>
-o
-
-$$\[Wy\]\_i = \\sum\_{j=1}^{n} w\_{i,j}y\_j$$
-
-![\Large x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}](https://latex.codecogs.com/svg.latex?\Large&space;\[Wy\]\_i = \\sum\_{j=1}^{n} w\_{i,j}y\_j)   
-
-hola
-
-<img src="https://render.githubusercontent.com/render/math?math=[Wy]_i =  w_{i,1}y_1 + w_{i,2}y_2 + w_{i,3}y_3 + w_{i,n}y_n">. 
 
 
 El problema con cuantificar los efectos espaciales es que es imposible
@@ -128,10 +118,10 @@ nula.
 
 La base de todo:  
 *Primera Ley de Geografía de Tobler:* Todo depende de todo lo demás,
-pero ubicaciones cercanas más (distancia de decaimiento).
+pero ubicaciones cercanas más (pensar en una función de distancia de decaimiento).
 
 Estadística de autocorrelación espacial (combina similitud atributos y
-geográfica) (univariada a diferencia de correlación de Pearson).
+geográfica). Es una estadística univariada, a diferencia de correlación de Pearson. 
 
 -   Autocorrelación positiva (e.g., *clustering*).
 -   Autocorrelación negativa (más difícil de identificar que la
