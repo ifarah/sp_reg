@@ -4,6 +4,7 @@ title: Ejercicios GIS
 ---
 
 [Descargar - [RMarkdown](https://github.com/ifarah/t/blob/main/Rmd/ejercicios/ejercicio_GIS.Rmd)]
+[Ver - [html](https://github.com/ifarah/t/blob/main/Rmd/ejercicios/ejercicio_GIS.html)]
 
 **Agregar puntos a polígonos**  
 
@@ -15,5 +16,4 @@ title: Ejercicios GIS
 * Crear mapa para verificar resultado.
 * Exportar shapefile con `st_write` (`sf`).
 
-<embed src="https://github.com/ifarah/t/blob/main/ejercicio_GIS.pdf" type="application/pdf">
 
