@@ -15,4 +15,5 @@ title: Ejercicios GIS
 * Crear mapa para verificar resultado.
 * Exportar shapefile con `st_write` (`sf`).
 
+<embed src="/ejercicio_GIS.html" type="application/html">
 
