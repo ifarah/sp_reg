@@ -5,7 +5,7 @@ title: |
 ---
 
 <p>
-    <img src="assets/img/head.png" width="950" height="400" />
+    <img src="assets/img/head.png" width="1000" height="350" />
 </p>
 
 # Introducción a la Econometría Espacial Aplicada
