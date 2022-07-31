@@ -92,7 +92,8 @@ $$[Wy]_i = \sum_{j=1}^{n} w_{i,j}y_j$$
 El problema con cuantificar los efectos espaciales es que es imposible saber si los valores vienen de interacción (dependencia) o de características intrínsecas (heterogeneidad).
 
 
-**Autocorrelación Espacial**
+**Autocorrelación Espacial**. 
+
 Hipótesis nula: Aleatoriedad espacial is absence of any pattern
 Queremos rechazar la hipótesis nula.
 
