@@ -5,12 +5,8 @@ title: |
 ---
 
 <p>
-    <img src="assets/img/head.png" width="500" height="240" />
+    <img src="assets/img/head.png" width="1000" height="240" />
 </p>
-
-![](https://github.com/ifarah/t/blob/main/assets/img/head.png)
-                                                                               
-<img src="{{ site.url }}{{ site.baseurl }}/assets/img/head.png">
 
 # Introducción a la Econometría Espacial Aplicada
 
