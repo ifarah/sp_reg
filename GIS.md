@@ -3,7 +3,7 @@ layout: page
 title: Ejercicios GIS
 ---
 
-[Descargar - [RMarkdown](https://github.com/ifarah/t/blob/main/ejercicio_GIS.Rmd)]
+[Descargar - [RMarkdown](https://github.com/ifarah/t/blob/main/Rmd/ejercicios/ejercicio_GIS.Rmd)]
 
 **Agregar puntos a polígonos**  
 
