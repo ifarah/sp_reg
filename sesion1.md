@@ -49,7 +49,7 @@ $\sqrt{3x-1}+(1+x)^2$
 -   Diferencia entre SRC proyectados y no proyectados
 
 <p>
-    <img src="../assets/img/proyecciones.png" width="500" />
+    <img src="../assets/img/proyecciones.png" width="600" />
 </p>
 
 -   Unidades (metros, pies (ft), para estimar áreas o distancias) *vs*
