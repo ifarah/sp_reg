@@ -4,17 +4,17 @@ title: |
   Taller - Introducción a Econometría Aplicada
 ---
 
+<p>
+    <img src="assets/img/head.png" width="500" height="240" />
+</p>
+
 ![](https://github.com/ifarah/t/blob/main/assets/img/head.png)
                                                                                
 <img src="{{ site.url }}{{ site.baseurl }}/assets/img/head.png">
 
 # Introducción a la Econometría Espacial Aplicada
 
-![ScreenShot](https://raw.githubusercontent.com/assets/img/head.png)
 
-<p>
-    <img src="assets/img/head.png" width="220" height="240" />
-</p>
 
 **Descripción del taller:** 
 
