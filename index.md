@@ -9,7 +9,7 @@ title: |
 </p>
 
 
-**Descripción del taller:** 
+## Descripción del taller 
 
 En este taller de tres días se estudiarán métodos de análisis espacial para su aplicación en la investigación social. A lo largo del taller, se introducirán herramientas para hacer análisis exploratorio de datos espaciales y análisis de regresiones espaciales. En particular, se enfocará en especificar modelos econométricos tomando en cuenta los efectos de dependencia y heterogeneidad espacial. El principal objetivo del taller es comprender el alcance y las limitaciones de modelos de regresión espacial para su aplicabilidad en ciencias sociales mediante el uso de R.
 
