@@ -1,4 +1,3 @@
-
 ---
 layout: page
 title: Ejercicios GIS
@@ -15,5 +14,4 @@ title: Ejercicios GIS
 * Agregar puntos a polígonos usando `st_intersects` (`sf`).
 * Crear mapa para verificar resultado
 
-{% include_relative ejercicios_GIS.html %}
 
