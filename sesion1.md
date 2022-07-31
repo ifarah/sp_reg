@@ -83,10 +83,11 @@ Tratamiento explícito de la ubicación:
   Soy el vecino de mi vecino. Estimar la interacción entre las ubicaciones de forma simultánea.
   Se puede estimar mediante la variable espacialmente rezagada, *spatial lag* ($[Wy]_i$) que es el promedio de los valores de los vecinos de una observación.).
   
-$$[Wy]_i =  w_{i,1}y_1 + w_{i,2}y_2 + w_{i,3}y_3 + w_{i,n}y_n$$
-o
+$$[Wy]_i =  w_{i,1}y_1 + w_{i,2}y_2 + w_{i,3}y_3 + w_{i,n}y_n$$  
 
-$$[Wy]_i = \sum_{j=1}^{n} w_{i,j}y_j$$
+o bien,
+
+$$[Wy]_i = \sum_{j=1}^{n} w_{i,j}y_j$$ 
 
 El problema con cuantificar los efectos espaciales es que es imposible saber si los valores vienen de interacción (dependencia) o de características intrínsecas (heterogeneidad).
 
@@ -160,6 +161,7 @@ Los mapas muestran patrones de distribución espacial, dando indicios de presenc
 Para formalmente evaluar la presencia de autocorrelación espacial global, utilizamos el índice univariado global de Moran.
 
 $$ I= [\sum_i\sum_j w_{ij} z_iz_j/S_0]/[\sum_iz_i^2/N] $$
+
 donde $S_0=\sum_i \sum_j w_{ij}$ y $z_i = y_i-m_x$ es la desviación del promedio.  
 
 Es una estadístics de producto cruzado $(z_i z_j)$ similar a un coeficiente de correlación. En este caso, los valores dependen de una estructura de pesos $(w_{ij})$
