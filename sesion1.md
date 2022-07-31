@@ -4,6 +4,9 @@ title: Sesión 1
 ---
 hola
 
+<img src="https://render.githubusercontent.com/render/math?math=e^{i \pi} = -1">
+
+
 <img src="https://render.githubusercontent.com/render/math?math={[Wy]_i =  w_{i,1}y_1 + w_{i,2}y_2 + w_{i,3}y_3 + w_{i,n}y_n}#gh-light-mode-only">. 
 
 bebe
