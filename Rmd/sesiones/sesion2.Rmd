@@ -1,0 +1,79 @@
+---
+title: "Introducción a la Econometría Espacial Aplicada - Efectos espaciales"
+author: "Irene Farah"
+date: "Verano 2022"
+geometry: margin=1cm
+output: html_document
+---
+
+**Efectos espaciales:**  
+
+- *Heterogeneidad espacial*  
+  Características **intrínsecas** distribuídas de forma desigual en el espacio.   
+  Diferencias estructurales en los datos (cambian los coeficientes según la ubicación - *structural breaks*). 
+  Por ejemplo, diferencias entre el norte y el sur del país.
+
+- *Dependencia espacial*  
+  **Interacción** entre los vecinos.  
+  Soy el vecino de mi vecino. Estimar la interacción entre las ubicaciones de forma simultánea.
+  Se puede estimar mediante la variable espacialmente rezagada, *spatial lag* ($[Wy]_i$) que es el promedio de los valores de los vecinos de una observación.).
+  
+  
+## Autocorrelación espacial en R  
+
+La dependencia espacial puede expresarse mediante autocorrelación espacial. La autocorrelación espacial revela valores similares en ubicaciones cercanas; se puede estudiar global o localmente. Concretamente, la autocorrelación espacial revelará si existe aleatoriedad espacial en la distribución de la inseguridad alimentaria entre municipios.
+
+Para estudiar distintos patrones espaciales, la definición de pesos espaciales es crucial. La estructura de pesos espaciales determina la conectividad entre ubicaciones vecinas. 
+
+### Estadísticas de autocorrelación espacial global  
+
+Ejemplos: Indice de Moran, Geary C, Getis-Ord, entre otras (mezclar similitud de atributos con pesos espaciales).
+$$ \sum_{ij}= w_{ij}f(x_ix_j) $$ 
+
+**Variable espacialmente rezagada**  
+
+Se define por el promedio de los valores de los vecinos. 
+$$[Wy]=w_{i,1}y_1 + w_{i,2}y_2 + ... + w_{i,n}y_n$$
+
+
+**Moran's I (la estadística más usada)**:
+Los mapas muestran patrones de distribución espacial, dando indicios de presencia de autocorrelación espacial.
+Para formalmente evaluar la presencia de autocorrelación espacial global, utilizamos el índice univariado global de Moran.
+
+$$ I= [\sum_i\sum_j w_{ij} z_iz_j/S_0]/[\sum_iz_i^2/N] $$
+donde $S_0=\sum_i \sum_j w_{ij}$ y $z_i = y_i-m_x$ es la desviación del promedio.  
+
+Es una estadístics de producto cruzado $(z_i z_j)$ similar a un coeficiente de correlación. En este caso, los valores dependen de una estructura de pesos $(w_{ij})$
+
+*Hipótesis nula: La distribución de los datos es aleatoria en el espacio.*
+
+Consecuentemente, cuando la hipótesis nula es rechazada, podemos decir que hay diferencias espaciales en nuestros datos.
+
+La autocorrelación positiva indica clustering, la autocorrelación negativa indica dispersión espaial. 
+
+Hacer estudios con distintos tipos de pesos para evaluar qué tanto se sostienen nuestras pruebas.
+
+Estadística que puede rechazar la hipótesis nula por encontrar autocorrelación, no-normalidad. No sabemos bien qué es lo que está mal con nuestros datos.
+
+### Estadísticas de autocorrelación espacial local
+
+Los clústeres se pueden identificar a través de indicadores locales de asociación espacial (LISA, Anselin 1995). Estos indicadores muestran las desviaciones de los patrones globales generales al mostrar la contribución de cada observación a la autocorrelación global general, lo que permite una visualización de los puntos calientes/fríos de la variable de interés Como se mencionó anteriormente, diferentes ponderaciones estudian la presencia de patrones mediante el uso de distintas técnicas de conglomerados, como el I de Moran local univariado.
+
+En esta sección vamos a identificar valores atípicos (outliers) mediante las estadísticas de autocorrelación espacial local, identificando hot spots y cold spots.
+
+Los ejemplos anteriores de estadísticas de autocorrelación espacial global están diseñados para encontrar si los datos (en su totalidad) tienen patrones de aleatoriedad espacial. Sin embargo, no muestran la **ubicación** de los clústers.
+
+$$ \sum_{j}=w_{ij} f(x_ix_j)$$ 
+
+### Heterogeneidad espacial en R
+
+Hasta ahora, hemos supuesto que los coeficientes de regresión se mantienen fijos en  la muestra. Sin embargo, con la heterogeneidad espacial,  relajamos este supuesto. Específicamente, consideramos el caso de los regímenes espaciales, donde diferentes subconjuntos espaciales de datos (regímenes espaciales) tienen diferentes coeficientes de modelo. 
+
+En particular, la heterogeneidad espacial es cuando diferencias espaciales son una característica intrínseca de los datos.
+
+Se puede imponer estructura de forma discreta (creando regímenes espaciales mediante variables dicotómicas o categóricas) o continua (smoothing, GWR - regresión geográficamente ponderada).
+
+### Bibliografía
+**Anselin, L.** (1995). Local indicators of spatial association—LISA. Geographical analysis, 27(2), 93-115.
+
+**Anselin, L., & Rey, S. J.** (2014). Modern spatial econometrics in practice: A guide to GeoDa, GeoDaSpace and PySAL. GeoDa Press LLC.

@@ -1,0 +1,180 @@
+---
+title: "Introducción a la Econometría Espacial Aplicada - Regresiones"
+author: "Irene Farah"
+date: "Verano 2022"
+output: html_document
+---
+
+Repaso:  
+
+* **¿Cuáles son los efectos espaciales?** 
+* **¿Qué es la autocorrelación espacial?**  
+* **¿Qué es la variable espacialmente rezagada y por qué es importante?**    
+* **¿Qué es `knitr` y por qué es útil?**  
+* **Con los datos que están trabajando, ¿qué efectos espaciales pueden pensar que existen *a priori*?**  
+
+# Especificación del modelo 
+
+¿Cómo incorporar el espacio en nuestros modelos?
+
+Con **heterogeneidad espacial** lo mejor es incorporar **regímenes espaciales**. Por ejemplo, un regimen puede ser la Ciudad de México mientras otro puede ser el Estado de México + Hidalgo. Otros ejemplos podrían ser el Norte y el Sur del país o municipios que tienen costa *vs* los que no tienen acceso a la costa. Depende de nuestra hipótesis de investigación.
+
+Para incorporar la estructura espacial de forma más explícita a la regresión, nos enfocamos en la **dependencia espacial**.  
+
+Tratamiento explícito de la ubicación:  
+
+** Primero repasamos la regresión de mínimos cuadrados ordinarios (MCO)**:
+
+$$Y_i = \beta_0 + \beta_1 X_i + ... + \beta_n X_n + \epsilon_i$$
+que en notación de matrices se expresa así:
+
+$$y=X\beta+u$$
+
+* y siendo un vector = n x 1  
+* X una matriz de variables explicativas (exógenas) = n x k  
+* \beta un vector con los coeficientes de regresión = k x 1  
+* u como un vector de los errores = n x 1  
+
+Las condiciones que se deben de mantener en MCO:  
+
+* Especificación funcional correcta de la regresión (por ejemplo, la función relación no es no lineal)  
+* $E[u] = 0$, es decir, sin sesgo sistemático  
+* $E[u_i]^2 = \sigma^2$ varianza del error constante (sin heteroscedasticidad)  
+* $E[u_i.u_j ] = 0$, sin correlación en los errores (incluida la autocorrelación espacial)  
+* $E[x_i.u_i] = 0$, sin endogeneidad (todas las variables explicativas no deben estar correlacionadas con los términos de error)  
+* y, opcionalmente, que los términos de error tengan una distribución normal.
+
+
+## Diagnósticos no espaciales
+
+MCO asume una varianza de error constante sin ninguna autocorrelación. Dos alternativas pueden relajar estos supuestos restrictivos. 1) La familiar estimación robusta heterocedástica basada en el resultado clásico de White (1980), incluida en la mayoría del software econométrico estándar. 2) La otra opción utiliza un resultado reciente de Kelejian y Prucha (2007), quienes derivaron una extensión de la estimación robusta frente a la heteroscedasticidad y la autocorrelación espacial, el llamado error estándar HAC.
+
+**Multicolinearidad**   
+
+El número de condición de multicolinealidad no es una prueba, sino una indicación de
+problemas potenciales. La regla de oro es considerarlo excesivo cuando
+su valor supera  30 o 50, aunque estos son puntos de corte arbitrarios. Valores
+en los cientos definitivamente deberían ser motivo de preocupación.
+
+Un indicador alternativo de problemas potenciales con la multicolinealidad es el denominado factor de inflación de la varianza o VIF, y su inverso, el factor de tolerancia  A diferencia del número de condición de multicolinealidad, este diagnóstico es calculado para cada variable explicativa. Al igual que con el número de condición de multicolinealidad, esta no es una estadística de prueba, sino un diagnóstico. La regla general es que un VIF inferior a 5 o 10 es deseable (o, equivalentemente, una tolerancia superior a 0,2 o 0,1).
+
+**Normalidad**  
+
+Se han sugerido muchas pruebas en la literatura para evaluar hasta qué punto
+los términos de error de regresión siguen una distribución normal. Un problema es que
+no se observan los errores en sí, sino sólo los residuos de la regresión. La prueba considerada aquí se basa en Jarque y Bera (1980).
+
+En general, las pruebas de normalidad se han vuelto menos relevantes con una mayor disponibilidad de dado que la normalidad de los distintos estimadores se obtiene como un resultado asintótico basado en teoremas del límite central (TLC). Usualmente no se requiere una suposición de normalidad para los términos de error. En otras palabras, el
+resultado deseable de normalidad asintótica se obtiene sin tener que asumir
+términos de error normalmente distribuidos.
+
+**Heteroscedasticidad** 
+
+Un conjunto importante de diagnósticos no espaciales pertenece a la hipótesis nula de
+homocedasticidad (es decir, varianza de error constante).
+
+Se consideran tres pruebas estadísticas para tratar con la heteroscedasticidad. La primera, debida a Breusch y Pagan (1979) es una prueba del multiplicador de Lagrange sobre la variación de coeficientes aleatorios. Una versión robustecida de la estadística fue sugerida por Koenker y Bassett (1982).
+
+Una gran diferencia numérica entre las estadísticas de BP y KB sugiere que la no normalidad puede ser un problema. En condiciones normales, ambas estadísticas deberían ser aproximadamente iguales (ya que la estimación de la varianza robustecida tiene como valor predeterminado el resultado de la distribución normal). En consecuencia, una gran diferencia entre ellos indicaría una violación del supuesto de normalidad.
+
+Una tercer prueba estadístico es la prueba de White (1980) para la heteroscedasticidad de forma desconocida. Esta prueba no requiere la especificación de una forma funcional específica como hipótesis alternativa de heteroscedasticidad. En cambio, cubre una gama de posibles alternativas. Esto es tanto una fortaleza como una debilidad. Por un lado, no requiere una forma funcional potencialmente incorrecta para ser la alternativa, pero por otro lado, puede tener un poder débil frente a alternativas específicas.
+
+## Modelos espaciales clásicos
+
+* **Modelo espacial rezagado** (SAR - *spatial lag*, spatial autoregressive) (global)
+$$y=\rho Wy + X\beta + \epsilon$$
+No especificar la estructura espacial en un modelo de rezago espacial por que sesga nuestros coefficientes (modelo global).
+
+
+* **Modelo errores espaciales** (SEM - *spatial error model*) (los valores inexplicados son una funcion de las variables residuales de los vecinos, probablemente por no incluir una variable)
+
+$$y = X\beta +u$$ con $$u=\lambda Wu + \epsilon$$
+
+* **Modelo espacial local** (SLX - spatially lagged X) (El valor promedio de las Xs de los vecinos, por ejemplo, cómo el ingreso de los vecinos afecta el crimen en una ubicación. Un modelo para efectos de spillover locales)  
+
+$$y=X\beta+WX\theta+\epsilon$$
+
+## Diagnósticos para dependencia espacial
+
+### Dos caminos para especificar los modelos de regresión espacial  
+
+1. LeSage & Pace (2009)
+2. Anselin & Rey (2014)
+
+<img src="assets/img/estilos.png" width="600">
+
+1. LeSage: Partiendo de los modelos anidados
+
+<img src="assets/img/anidados.png" width="800">
+
+2. Anselin: Partiendo del modelo de MCO  
+
+<img src="assets/img/SLM_SEM_SDM.png" width="600">
+
+
+*Nota: Si rechazamos la prueba de hipótesis ($\theta=0$), eso NO implica que tenemos que especificar el modelo de rezago espacial (spatial lag). Puede ser que \beta o \rho sean cero. SDM no es una versión anidada del spatial lag.*
+
+## ¿Cómo especificar nuestro modelo espacial?
+
+<img src="assets/img/spec_anselin.png" width="500">
+
+Según la ruta de Anselin, los diagnósticos comunes para evaluar la presencia de dependencia espacial incluyen una recopilación de estadísticas de prueba del multiplicador de Lagrange (*Lagrange Multiplier*) y una forma especializada de la I de Moran. 
+
+Hipótesis nula: $\rho = 0$
+Hipótesis alternativa: $\rho \neq 0$ en $y=\rho Wy + X\beta + u$ 
+
+La hipótesis nula para la prueba de error espacial también es una especificación de regresión lineal estándar anterior con $u = \lambda Wu + \epsilon$ 
+
+Hipótesis nula: $\lambda = 0$
+Hipótesis alternativa: $\lambda \neq 0$
+
+También existe una prueba del multiplicador de Lagrange con:
+Hipótesis nula: $\lambda = \rho = 0$
+Hipótesis alternativa: $\lambda \neq 0$ y $\rho \neq 0$ 
+
+Las estadística $LM \rho$ también es sensible a la presencia de autocorrelación espacial en el error al igual que $LM \lambda$ también es sensible a la presencia de la autocorrelación espacial en la variable rezagada. Por ello, existen las pruebas de **LM robustas**, corrigiendo la covarianza entre \rho y \lambda y ayudándonos a seleccionar el modelo.
+
+Es importante tener en cuenta que las estadísticas robustas del multiplicador de Lagrange solo deben considerarse cuando tanto $LM \rho$ como $LM \lambda$ rechazan la hipótesis nula, pero nunca cuando una de estas estadísticas (o ambas) no rechazan la hipòtesis nula.
+
+En algunos casos, especialmente cuando el número de observaciones es grande, ambas estadísticas pueden ser significativas. En esos casos, la alternativa preferida sería la que tuviera el valor más alto para la estadística. Sin embargo, esta regla de decisión debe aplicarse con cautela, ya que puede no haber suficiente evidencia para seleccionar claramente una alternativa sobre otra. En esos casos, puede ser necesario reconsiderar la especificación del modelo, no solo la parte espacial (por ejemplo, considerar una matriz de pesos espaciales diferente), sino también la parte no espacial y la forma funcional.
+
+La prueba de I de Moran es una prueba de especificación que tiene poder contra una gran cantidad de alternativas. Esto incluye la autocorrelación del error espacial, pero también la correlación residual causada por una alternativa de rezago espacial e incluso la heteroscedasticidad.
+
+Es importante señalar que un rechazo de la hipótesis nula en la prueba de I de Moran no implica la alternativa de autocorrelación de error espacial, que es típicamente cómo se interpreta (incorrectamente) este resultado.  
+
+Si bien esta es una alternativa probable, no es la única. Específicamente, la I de Moran también tiene un poder considerable contra una alternativa de rezago espacial, por lo que el rechazo de la hipótesis nula no proporciona ninguna guía en la elección de un modelo error espacial vs un retraso espacial como la especificación de regresión espacial alternativa.  
+
+Por último, podemos graficar los residuales (gráfica de residuales vs predicciones).
+Debería estar plano alrededor del cero, dado que no queremos varianza en los residuales.
+
+## Métodos de estimación de los parámetros de la regresión
+
+#### Mínimos cuadrados ordinarios
+- Minimizar la distancia al cuadrado de los errores.
+
+#### Máxima verosimilitud (*Maximum likelihood* (MLE))
+- Estima los parámetros de una distribución normal que depende de las observaciones de la muestra. 
+
+
+<img src="assets/img/MLE.png" width="600">
+
+- Para mayor detalle, ver el video de [Arturo Erderly](https://www.youtube.com/watch?v=q-9hvPeWWfA).
+
+#### Método generalizado de los momentos (*General Method of Moments* (GMM))  
+- El método de estimación más antiguo.  
+- Cuando la distribución de los datos no es normal o cuando hay problemas de endogeneidad, utilizamos GMM. 
+
+### Bibliografía
+**Anselin, L., & Rey, S. J.** (2014). Modern spatial econometrics in practice: A guide to GeoDa, GeoDaSpace and PySAL. GeoDa Press LLC.
+
+**Anselin, L.; Bera, A.** (1998). [Spatial Dependence in Linear Regression Models with an Introduction to Spatial Econometrics](http://www.econ.uiuc.edu/~hrtdmrt2/Teaching/SE_2016_19/References/Spatial_Dependence_in_Linear_Regression_Models_With_an_Introduction_to_Spatial_Econometrics_281_29.pdf). En Aman Ullah and David Giles, editores, Handbook of Applied Economic Statistics, Marcel Dekker, New York.
+
+**Anselin, L.** (2002). [Under the hood: Issues in the specification and interpretation of spatial regression models](http://onlinelibrary.wiley.com/doi/10.1111/j.1574-0862.2002.tb00120.x/abstract). Agricultural Economics, 27(3): 247-267.
+
+**Anselin, L.** (2003). [Spatial externalities, spatial multipliers, and spatial econometrics](http://irx.sagepub.com/content/26/2/153.short). International Regional Science Review, 26(2): 153-166.  
+
+**Bivand, R.; Piras, G.** (2015). [Comparing Implementations of Estimation Methods for Spatial Econometrics.](https://www.jstatsoft.org/article/view/v063i18) Journal of Statistical Software, 63(18): 1-36.
+
+**Gibbons, S.; Overman, H. G.; Patacchini, E.** (2014). [Spatial Methods](http://www.spatialeconomics.ac.uk/textonly/SERC/publications/download/sercdp0162.pdf). SERC Discussion Paper 162.
+
+**LeSage, J., & Pace, R. K.** (2009). Introduction to spatial econometrics. Chapman and Hall/CRC.
