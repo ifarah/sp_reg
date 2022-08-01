@@ -1,0 +1,771 @@
+---
+title: "Introducción a la Econometría Espacial Aplicada - Ejercicios Regresión Espacial"
+author: "Irene Farah"
+date: "Verano 2022"
+output: html_document
+---
+
+[Descargar - [RMarkdown](https://github.com/ifarah/t/blob/main/Rmd/ejercicios/ejercicio_REG.Rmd)]
+
+**Regresión espacial**
+
+* Leer datos espaciales (`sf`). 
+* Verificar proyección.  
+* Crear mapas coropléticos (`ggplot2`, `mapview`, `tmap`). 
+* Crear matriz de pesos espaciales (`spatialreg`, antes `spdep`).  
+* Cuantificar autocorrelación espacial (global y local) (`spatialreg`).
+* Crear mapas de autocorrelación local (LISAs).  
+* Crear regímenes espaciales para incorporar heterogeneidad espacial (`dplyr`).  
+
+
+Estos ejercicios están basados en ejercicios desarrollados por Luc Anselin (ver [aquí](https://dces.wisc.edu/wp-content/uploads/sites/128/2013/08/W14_Anselin2007.pdf) y [aquí](http://labs.bio.unc.edu/Buckley/documents/AnselinIntroSpatRegres.pdf) para estudiar los detalles). La especificación de los [datos](https://geodacenter.github.io/data-and-lab/) también la pueden encontrar en la página de GeoDa. Este documento actualiza los ejericios utilizando `spatialreg` en vez de `spdep`. 
+
+**Leer los paquetes estadísticos:**
+```{r, error=FALSE, message=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning=FALSE)
+library(sp)
+library(sf) 
+library(spdep) 
+library(spData)
+library(spatialreg)
+
+library(lmtest) # para la prueba Breusch-Pagan de heteroscedasticidad.
+library(car) # para la prueba VIG de multicolinearidad
+
+library(tmap)
+
+library(spgwr) # GWR
+```
+
+
+**Datos:**   
+
+* Crimen en Columbus, Ohio  
+* Precios de vivienda en Boston.
+
+**Cargar datos de Columbus**:
+```{r datos columbus}
+#Importar datos espaciales y pesos
+data(columbus)
+```
+
+**Explorar columnas de datos:**
+```{r explorar columnas}
+columbus$INC 
+```
+
+**Explorar objetos de Columbus**:
+```{r explorar datos columbus}
+class(col.gal.nb)
+class(columbus)
+class(polys)
+summary(columbus)
+```
+
+**Cargar datos de Boston**:
+```{r datos boston}
+#Importar datos espaciales y pesos
+data(boston)
+```
+
+**Explorar datos Boston**:
+```{r explorar datos boston}
+head(boston.utm)
+```
+
+**Regresión Columbus**:
+```{r regresion columbus 1}
+lm(CRIME ~ INC + HOVAL, data=columbus) 
+```
+
+Observar cómo tenemos que designar la regresión como un objeto para obtener mayor información de la regresión.
+```{r regresion columbus 2}
+columbus.lm <- lm( CRIME ~ INC + HOVAL, data=columbus) # diferencia entre ambos
+summary(columbus.lm)
+```
+
+**Diagnósticos Columbus**:
+```{r diagnosticos columbus bp}
+#Breush-Pagan para heteroscedasticidad (Ho: homoscedasticidad)
+bptest(columbus.lm)
+```
+```{r diagnosticos columbus}
+#variance inflation factor para beta's
+vif(columbus.lm)
+```
+
+
+**Práctica**  
+
+Ejecuten una regresión básica con en el conjunto de datos de Boston.
+Especifiquen el valor de la mediana de la vieneda: log(MEDV) o log(CMEDV) (valor medio de la casa) como variable dependiente y usen variables explanatorias utilizando características:  
+```{r MCO boston}
+bo1 <- lm(log(MEDV) ~ CRIM + ZN + INDUS + CHAS + I(NOX^2) + I(RM^2) + AGE + log(DIS) + log(RAD)  + PTRATIO+B+ log(LSTAT), data=boston.c)
+```
+
+
+* CRIM (crimen)
+* ZN (zonificación de lotes grandes - proporción)
+* INDUS (acres comerciales no minoristas por ciudad)
+* CHAS (ficticia del río Charles),
+* NOX^2 (nítrico óxidos)
+* RM^2 (promedio de número habitaciones)
+* AGE (proporción anterior a 1940)
+* log(DIS) (log de distancia ponderada a los centros de empleo)
+* log(RAD) (índice de accesibilidad)
+* TAX (tasa de impuesto a la propiedad)
+* PTRATIO (proporción de alumnos por maestro)
+* B (población negra)
+* log (LSTAT) (población de menor estatus socioeconómico).
+
+(La regresión hedónica es el uso de un modelo de regresión para estimar la influencia que varios factores tienen en el precio de un bien o, a veces, en la demanda de un bien.)
+
+Tengan en cuenta que para usar las potencias en la fórmula de regresión, deben encerrarlas en un comando I() de identidad. Por ejemplo, como I(NOX^2).
+
+Asegúrense de crear un objeto lm, por ejemplo "bo1".
+
+Comparen los resultados de la variable dependiente del valor mediano original (MEDV) y el “corregido” (CMEDV).
+
+log(MEDV) ~ CRIM + ZN + INDUS + CHAS + I(NOX^2) + I(RM^2) + AGE + log(DIS) + log(RAD) + TAX + PTRATIO+B+ log(LSTAT)
+
+**Regresión Boston**:
+```{r regresion boston}
+
+```
+
+**Diagnósticos Boston**:
+```{r diagnosticos boston}
+
+```
+
+
+**Incorporando pesos Columbus**:
+```{r Incorporando pesos columbus}
+col.listw <- nb2listw(col.gal.nb)
+print(col.gal.nb)
+print(col.listw)
+```
+
+
+**Práctica**  
+
+Verifiquen la información de contigüidad en el archivo boston.soi.
+Conviertan el objeto nb en una lista objeto.
+Comparen la impresión y el resumen de estos objetos.
+
+**Pesos Boston:**
+```{r pesos boston}
+
+
+```
+
+
+Para realizar una prueba de Moran sobre los residuos de la regresión `columbus.lm`, pasen tanto el objeto de regresión (columbus.lm) como la información de contigüidad listw a la función lm.morantest.
+
+**Columbus naive**:
+```{r moran columbus naive}
+col.moran <- lm.morantest(columbus.lm, col.listw)
+col.moran
+```
+
+Un aspecto a tener en cuenta acerca de estos resultados es que la significancia predeterminada se informa para una sola alternativa (“greater”). Para una hipótesis alternativa de dos colas, el significado sería el doble del valor informado. Puede especificar esto con la opción alternativa, como en:
+
+**Moran Columbus (2 colas)**:
+```{r moran columbus 2-sided}
+col.moran2 <- lm.morantest(columbus.lm,col.listw,alternative="two.sided")
+print(col.moran2)
+```
+
+Hay dos funciones separadas, moran.test, donde la inferencia se basa en un supuesto de normalidad o aleatoriedad, y moran.mc, para una prueba basada en permutaciones.
+
+Cuando randomisation = FALSE, implica que la inferencia está basada en una aproximación de normalidad. Cuando es TRUE, se examina cuando la varianza de I es calculada bajo el supuesto de aleatoriedad. 
+
+**Moran Columbus forma correcta**:
+```{r moran columbus forma correcta}
+col.e <- resid(columbus.lm)
+col.morane <- moran.test(col.e, col.listw, randomisation = FALSE)
+print(col.morane)
+```
+
+**Autocorrelación residuos MCO columbus**:
+```{r Autocorrelación residuos MCO columbus}
+plot(col.e, lag.listw(col.listw, col.e))
+
+moran.plot(col.e, col.listw)
+```
+
+Estimnando la prueba de Moran con permutaciones, se calcula el rango de la estadística observada relativo a la distribución de referencia de estadísticas para los conjuntos de datos permutados.
+
+El valor semilla de números aleatorios se determina a partir de la hora actual, por lo que ninguna permutación aleatoria será idéntica. Para controlar la semilla, usen la función de R set.seed(seed, kind = NULL) justo antes de invocar el comando moran.mc para obtner el mismo valor cada vez.
+
+**Moran Columbus permutaciones**:
+```{r moran columbus permutaciones}
+set.seed(12345678) # Para siempre obtener el mismo resultado de las permutaciones
+morpermRES <- moran.mc(col.e, col.listw, 99)
+morpermRES
+head(morpermRES$res)
+
+morpermRES <- moran.mc(col.e, col.listw, 999)
+morpermRES
+head(morpermRES$res)
+```
+
+
+**Práctica** 
+
+Prueben la autocorrelación residual espacial en la regresión de Boston usando boston.soi como los pesos espaciales (nb).
+
+**Autocorrelación residual espacial Boston**:
+```{r moran vs normalidad boston}
+
+
+```
+
+```{r moran vs permutaciones boston}
+
+
+```
+
+
+La estadística de prueba I de Moran tiene un alto poder estadístico frente a una gama de alternativas espaciales.
+
+Sin embargo, no proporciona mucha ayuda en términos de qué modelo alternativo sería más apropiado.
+
+
+**Repaso**:
+```{r Retomar donde nos quedamos - Repaso}
+data(columbus)
+data(boston)
+
+columbus.lm <- lm( CRIME ~ INC + HOVAL, data=columbus) 
+col.listw <- nb2listw(col.gal.nb)
+
+bo1 <- lm(log(MEDV) ~ CRIM + ZN + INDUS + CHAS + I(NOX^2) + I(RM^2) + AGE + log(DIS) + log(RAD)  + PTRATIO+B+ log(LSTAT), data=boston.c)
+
+summary(bo1)
+
+bptest(bo1)
+vif(bo1)
+
+bos.listw <- nb2listw(boston.soi)
+```
+
+
+
+## ¿Cómo saber qué modelo especificar?
+Estadísticas de la prueba del multiplicador de Lagrange para la autocorrelación espacial.
+
+Las estadísticas del multiplicador de Lagrange si permiten una distinción entre
+modelos de error espacial (spatial error) y modelos de rezago espacial (spatial lag).
+
+**Multiplicador de Lagrange de Columbus**:
+```{r LM columbus}
+columbus.lagrange <- lm.LMtests(columbus.lm,col.listw,
+                                test=c("LMerr","RLMerr","LMlag","RLMlag"))
+columbus.lagrange
+```
+
+
+Para especificar el modelo, primero evaluaríamos cuáles son los LMerr y LMlag significativos. En este caso, ambos lo son, lo que requiere la comparación de sus formas robustas.
+
+Estas pruebas sugieren que el modelo de rezago espacial es la alternativa probable
+(p = 0.07 en comparación con p =0.85).
+
+**Práctica**  
+
+Intenten correr la autocorrelación espacial en la regresión de Boston y
+sugieran la alternativa más probable de modelo.
+
+Pueden experimentar con diferentes especificaciones de modelos para tratar de eliminar
+correlación espacial mediante la inclusión de diferentes variables.
+Podrían probar esto con el caso Columbus también. De hecho hay algunas especificaciones en las que no queda correlación residual.
+
+**Multiplicador de Lagrange de Boston**:
+```{r LM boston - diagnostico}
+
+
+```
+
+# Spatial Lag (Modelo de rezago espacial)  
+
+La estimación del modelo de rezago espacial se realiza con la función `lagsarlm( )` mediante la estimación de máxima verosimilitud (Maximum Likelihood).
+Los argumentos necesarios son una fórmula de regresión, un conjunto de datos y un objeto de pesos espaciales listw. 
+
+**Estimación de *spatial lag* de Columbus**:
+```{r Estimación columbus}
+columbus.lag <- lagsarlm(formula = CRIME ~ INC + HOVAL,
+                         data = columbus,
+                         listw = col.listw)
+
+summary(columbus.lm)
+
+summary(columbus.lag)
+```
+
+En comparación con los resultados de MCO, todas las variables siguen siendo significativas.
+
+El parámetro autorregresivo espacial (Rho) es altamente significativo, como se indica
+por el valor p de 0.0008 en una prueba t asintótica (basada en la matriz de varianza asintótica).La prueba de Likelihood Ratio (LR) sobre este parámetro también es altamente significativa (pvalue 0.0037).
+
+También se observa una estadística de prueba LM para la autocorrelación restante del error espacial. Sin embargo, el valor de 0.19 no es significativo (p = 0,66) lo que sugiere que ya no tenemos problemas restantes con la especificación de la dependencia espacial.
+
+El método de estimación de máxima verosimilitud predeterminado utiliza la descomposición de eigenvalues de la matriz de pesos espaciales con el cual se estima el modelo.
+
+También nos interesan los residuales, e.g., `columbus.lag$residuals`, y los valores de predicción (valores ajustados) , e.g., `columbus.lag$fitted.values`.
+
+Con propósitos ilustrativos, comparamos este modelo con el estimador de MCO (inconsistente). Primero, necesitamos construir una variable dependiente rezagada espacialmente. Lo más fácil para manipular los datos es utilizar el commando `attach`. A continuación, construimos una variable dependiente rezagada espacialmente usando la función `lag.listw` (especificamos un objeto de pesos espaciales listw y una variable/vector). Finalmente, incluimos el rezago espacial como variable explicativa en la regresión MCO. Noten cómo la estimación y el error estándar del coeficiente para lagCRIME es bastante diferente del resultado de máxima verosimilitud.
+
+MCO minimizan la suma de cudrados de los residuales.
+ML maximiza la verosimilitud (likelihood) de observar nuestra muestra.
+
+**Estimación INCORRECTA de *spatial lag* de Columbus**:
+```{r estimacion columbus SAR}
+attach(columbus)
+
+lagCRIME <- lag.listw(col.listw,CRIME)
+
+wrong.lag <- lm(CRIME ~ lagCRIME + INC + HOVAL)
+summary(wrong.lag)
+
+detach(columbus)
+```
+
+Después de ejecutar estos análisis, no olviden  hacer `detach(columbus)` porque podríamos encontrarnos con problemas de memoria. Una vez que hagamos detach un conjunto de datos, las variables ya no están directamente disponibles por nombre, pero debemos especificarlas como columnas en una tabla, por ejemplo, como `columbus$CRIME`.
+
+**Prueba heteroscedasticidad y normalidad** (deberian ser valores similares KB y BP):
+```{r heteroscedasticidad lag KB columbus }
+bptest.Sarlm(columbus.lag, studentize = TRUE)
+```
+
+```{r heteroscedasticidad lag BP columbus }
+bptest.Sarlm(columbus.lag, studentize = FALSE)
+```
+
+Para la interpretación del modelo, tenemos que estudiar los efectos marginales (efecto directo vs efecto indirecto) en SAR ya que es un modelo global.
+
+Adicionalmente, la comparación de los estimadores se puede analizar a través de los efects marginales de las variables explicativas. El efecto de las variables explicativas sobre la variable dependiente consta de dos
+partes en el modelo de rezago espacial. Uno es el efecto directo que se mide en cada ubicación. El efecto  indirecto mide el spillover espacial. Uno de
+los beneficios de comparar los modelos de rezago espacial es examinar ambas partes explícitamente.
+ 
+**Interpretación Columbus**:
+```{r interpretación SAR columbus}
+#summary(impacts(columbus.lag, listw=col.listw, R=500),zstats=TRUE)
+summary(columbus.lag)
+```
+
+
+Si no establecemos R, el método solo muestra los impactos directos, indirectos y totales de las variables en el modelo.
+
+**Efectos Marginales de Columbus**:
+
+```{r}
+impacts(columbus.lag, listw=col.listw)
+```
+
+```{r efectos marginales SAR columbus }
+summary(impacts(columbus.lag, listw=col.listw, R=500),zstats=TRUE)
+```
+
+Si se proporciona R, se utilizarán simulaciones para crear distribuciones para las medidas de impacto, ajustado por la matriz de covarianza de los coeficientes. Las simulaciones se realizan utilizando mvrnorm con los coeficientes y la matriz de covarianza del modelo ajustado.
+
+INTERPRETACION: El efecto de un cambio en una variable de política x en i se extiende más allá de i a sus vecinos, vecinos de vecinos.
+
+Las simulaciones se almacenan como objetos mcmc como se define en el paquete coda; los objetos se utilizan por conveniencia, pero no son generados por un proceso MCMC. Los valores simulados de los coeficientes se verifican para ver que el coeficiente espacial permanezca dentro de su intervalo válido.
+
+**Práctica**  
+
+Especifiquen y estimen el modelo, interpretando sus resultados.
+
+**Estimación datos Boston**:
+```{r estimacion boston SAR}
+
+```
+
+**Prueba heteroscedasticidad y normalidad de Boston **(deberian ser valores similares KB y BP):
+```{r heteroscedasticidad lag KB boston }
+
+```
+
+```{r heteroscedasticidad lag BP boston }
+
+```
+
+Para la interpretación del modelo, tenemos que estudiar los efectos marginales (efecto directo vs efecto indirecto) en SAR ya que es un modelo global.
+ 
+**Efectos Marginales de Boston**:
+```{r interpretacion SAR boston }
+
+```
+
+# Spatial Error Model (Modelo de error espacial)
+
+La estimación del modelo de error espacial con máxima verosimilitud es similar al procedimiento del modelo de rezago espacial y se implementa con el comando `errorsarlm`. Nuevamente, se debe especificar la fórmula, el conjunto de datos y un objeto de pesos espaciales listw, como se ilustra a continuación.
+
+**Estimación  de *spatial error* de Columbus**:
+```{r estimacion columbus SEM}
+columbus.err <- errorsarlm(CRIME ~ INC + HOVAL,data=columbus, col.listw)
+summary(columbus.err)
+```
+
+Observen cómo la estimación del coeficiente autorregresivo espacial \lambda es significativa, pero en menor grade que para el modelo de rezago espacial. Una comparación directa entre los dos modelos se puede basar en la maximized log-likelihood (no en medidas de ajuste como la R cuadrada). En este ejemplo, la probabilidad logarítmica del modelo de error de -184.16 es peor (menor que) la del modelo de rezago de -183.17.
+Sin embargo, los valores de esta estadística no se interpretan y la diferencia entre las probabilidades no se puede comparar de manera más formal en una prueba de Likelihood Ratio porque los dos modelos no están anidados (es decir, uno no se puede obtener del otro estableciendo coeficientes o funciones de coeficientes en cero). Más específicamente, uno no debe usar el método LR.sarlm en spdep para tal comparación, esto solo es válido para modelos anidadas.
+
+**Prueba heteroscedasticidad y normalidad **(deberian ser valores similares KB y BP):
+```{r heteroscedasticidad err KB columbus }
+bptest.Sarlm(columbus.err, studentize = TRUE)
+```
+```{r heteroscedasticidad err BP columbus }
+bptest.Sarlm(columbus.err, studentize = FALSE)
+```
+
+**Práctica** 
+
+Estimen un modelo de error espacial para los datos de Boston. Compare las estimaciones de los coeficientes y sus errores estándar con los resultados de MCO y con los resultados del modelo de rezago espacial. ¿Cómo se compara el ajuste del modelo (maximized log-likelihood)?
+
+**Estimación  de *spatial error* de Boston**:
+```{r estimacion boston SEM}
+
+
+```
+
+**Prueba heteroscedasticidad y normalidad de Boston (SEM)**
+```{r heteroscedasticidad boston (KB y BP) }
+
+```
+
+
+# Spatial Durbin Model (Modelo de Durbin espacial  SDM)
+
+Analisis de factor común (common factor analysis)  
+
+Una prueba de especificación importante en el modelo de error espacial es la llamada hipótesis del factor común espacial. Esto parte de un modelo de error espacial que también se puede especificar en forma de rezago espacial, incluyendo las variables explicativas espacialmente rezagadas pero con restricciones en los parámetros (las restricciones del factor común). 
+
+La forma de rezago espacial del modelo de error también se denomina modelo de Durbin (SDM). En `spdep`, esto se implementa especificando la opción `mixted` para la estimación de rezago espacial (no es necesario especificar las variables explicativas rezagados espacialmente). 
+
+Este modelo nos ayuda a discriminar entre dependencia sustantiva y residual en una ecuación aparentemente mal especificada.
+
+**Estimación  de *spatial Durbin* de Columbus**:
+```{r especificacion columbus SDM}
+columbus.durbin <- lagsarlm(CRIME ~ INC+HOVAL,data=columbus,col.listw,type="mixed")
+summary(columbus.durbin)
+```
+
+<img src="assets/img/SLM_SEM_SDM.png" width="600">
+
+Nótese cómo el coeficiente autorregresivo espacial de 0.38 es diferente del valor obtenido con el modelo de error puro (0.52).
+
+Asimismo, no hay evidencia de autocorrelación de error espacial restante, como lo indica la prueba significativo de LM (0.75)
+
+**Interpretación  de *spatial Durbin* de Columbus**:
+```{r interpretacion SDM columbus }
+#summary(impacts(columbus.lag, listw=col.listw, R=500),zstats=TRUE)
+impacts(columbus.durbin, listw=col.listw)
+```
+
+Una prueba sobre la hipótesis del factor común es una prueba sobre las restricciones de que cada coeficiente de una variable explicativa rezagada espacialmente (por ejemplo, lag.INC) es igual al valor negativo del producto del coeficiente autorregresivo espacial (Rho) y el coeficiente de regresión coincidente de la variable no retardada (INC) = $-\rho\beta$.
+
+En otras palabras, la hipótesis nula es que $-\rho\beta = \theta$, en la especificación del modelo espacial de Durbin:
+
+$$y=\rho Wy +X\beta+WX\theta+\epsilon$$
+
+En `spdep`, esto se puede ilustrar mediante la función `LR.Sarlm`. Esta es una prueba de likelihood ratio, que compara dos objetos para los que existe una función `logLIK`. En nuestro ejemplo, tenemos columbus.durbin para el modelo "sin restricciones" (el modelo sin restricciones en los parámetros) y columbus.err para el modelo "restringido" (las restricciones se han aplicado). El ajuste (log-likelihood) del modelo sin restricciones (SDM) siempre será mayor que el del modelo restringido.
+
+NOTA: En estadística, la prueba de log-likelihood (LR test) evalúa el ajuste entre dos modelos estadísticos que compiten en función de la razón de sus probabilidades, específicamente uno maximizando todo el espacio de parámetros y el otro estimado después de imponer alguna restricción.
+
+**Diagnóstico de *spatial Durbin* de Columbus - Likelihood Ratio**:
+```{r LR SDM}
+durbin.test1 <- LR.Sarlm(columbus.durbin,columbus.err)
+print(durbin.test1)
+```
+
+Esto sugeriría que la hipótesis del factor común no se rechaza con un valor de p de 0.12 entonces nos quedaríamos con la especificación del modelo de error espacial (SEM).
+
+Si hubiéramos rechazado la prueba de hipótesis ($\theta=0$), eso NO implica que tenemos que especificar el modelo de rezago espacial (spatial lag). Puede ser que $\beta$ o $\rho$ sean cero. SDM no es una versión anidada del spatial lag.
+
+En otras palabras, la especificación del modelo de error espacial es inconsistente. Esto puede deberse a una mala elección de los pesos espaciales o a una mala especificación del proceso de error (por ejemplo, cuando el verdadero proceso de error no es SAR). Esta evidencia nos muestra que la especificación del modelo debe ser reconsiderada.
+
+
+**Práctica** 
+
+Comprueben la hipótesis del factor común espacial para el modelo de Boston.
+
+```{r  Boston SDM}
+
+
+```
+
+**Ejemplo del modelo SLX (*Spatial Lag of X*), con una variable explanatoria rezagada**
+```{r Ejemplo SLX con una variable explanatoria rezagada, error=FALSE}
+COL.SLX <- lmSLX(CRIME ~ INC + HOVAL + I(HOVAL^2), data=columbus, listw=col.listw, Durbin=~INC)
+
+summary(COL.SLX)
+```
+
+
+## Heterogeneidad
+
+## Incorporar heterogeneidad espacial (discreta)
+
+Aunque spdep no contiene una funcionalidad específica para abordar la heterogeneidad espacial, es posible obtener algunos resultados útiles manipulando el formato de regresión y extrayendo información del objeto de regresión espacial ajustado. Este ejercicio ilustra el análisis de heterogeneidad espacial discreta en forma de análisis espacial de varianza (ANOVA espacial) y pruebas para la presencia de regímenes espaciales.
+
+El análisis espacial de la varianza se puede implementar como una regresión de una variable dummy. En nuestro ejemplo, HR90 es la variable dependiente, con la variable dummy SOUTH como variable explicativa. La estimación de la dummy indica la diferencia entre el régimen SUR = 1 y la media global.
+
+# Heterogeneidad discreta - régimen espacial
+
+Las regresiones de régimen espacial permiten que los coeficientes del modelo varíen entre subconjuntos de datos espaciales discretos. Implementaremos esto aprovechando la función de interacción de la fórmula en R (indicada por el símbolo : entre dos conjuntos de variables). Específicamente, crearemos una variable dummy para cada régimen (es decir, tomando un valor de uno para las observaciones en el régimen y cero para todas las demás) y luego interactuaremos cada variable explicativa con cada dummy Una prueba de Chow y su extensión a las regresiones espaciales (prueba de Chow espacial) es la base para evaluar la importancia de los regímenes.
+
+**Cargar datos de homicidios en Estados Unidos**:
+```{r Preparar datos de homicidios en Estados Unidos, error=FALSE}
+nat60  <- st_read("./data/natregimes.geojson")
+```
+  
+**Crear pesos reina de homicidios en Estados Unidos**:
+```{r ver  nat60}
+natq <- nb2listw(poly2nb(nat60, row.names = nat60$FIPSNO))
+#summary(nat60)
+```
+
+Creamos dos nuevas variables y las agregamos a la tabla nat60. Primero, construimos el complemento de la variable ficticia SUR, NOSOUTH. A continuación, construimos un vector de unos de la misma longitud que las otras variables. Esto se hace fácilmente agregando SOUTH y NOSOUTH sin tener que preocuparnos por especificar la longitud. Llamamos a la nueva tabla de datos nat60a.
+
+
+**Crear variable dicotómica**:
+```{r crear variable dicotómica nat60}
+nat60$NOSOUTH = 1 - nat60$SOUTH
+nat60$ONE = nat60$SOUTH + nat60$NOSOUTH
+
+nat60a <- cbind(nat60,nat60$ONE,nat60$NOSOUTH)
+summary(nat60a$NOSOUTH)
+summary(nat60a$SOUTH)
+```
+
+Primero ejecutaremos una regresión base de MCO para toda la nación, en la que los coeficientes se mantienen fijos y sin variable dummy SUR. Esto se denominará el modelo restringido (ya que los coeficientes son iguales en todos los regímenes).
+
+* HR60 =  tasa de homicidio por 100,000 personas  
+* RD60 = indice de bajos recursos  
+* PS60 = indice de estructura poblacional  
+* MA60 = edad mediana  
+* DV60 = tasa de divorcio  
+* UE60 = tasa de desempleo  
+
+**MCO**
+```{r MCO nat60}
+nat60ols <- lm(HR60 ~ RD60 + PS60 + MA60 + DV60 + UE60, data=nat60a)
+summary(nat60ols)
+```
+
+Para obtener la regresión sin restricciones, debemos eliminar la constante  de la fórmula para asegurarnos de que se estime una intersección diferente para cada régimen. Esto se hace especificando 0 en la fórmula para la especificación de regresión. También necesitamos interactuar cada una de las variables explicativas (incluida la constante, por eso construimos la variable de ONE) con las dummies SOUTH y NOSOUTH.
+
+**MCO permitiendo variable dicotómica, incorporando régimen espacial**
+```{r MCO nat60 con 0}
+nat60rega <- lm(HR60 ~ 0 + (ONE + RD60 + PS60 +
+                              MA60 + DV60 + UE60):(SOUTH + NOSOUTH), data=nat60a)
+summary(nat60rega)
+```
+Tener en cuenta que la R-cuadrada no está estimada correctamente.
+Los resultados muestran algunas diferencias significativas entre regímenes para algunos de los coeficientes, como PS60 (no significativo en SOUTH pero significativo en NOSOUTH) y UE60 (fuertemente significativo y negativo en SOUTH y positivo pero marginalmente significativo en NOSOUTH).
+
+Una prueba directa para ver si los coeficientes son iguales en todos los regímenes es la prueba de Chow contenida en cualquier prueba econométrica estándar donde er son el vector de residuales de la regresión restringida y eu son los residuales de la regresión no restringida.
+
+**Obtener residuales de la regresión**
+```{r MCO residuales}
+er <- residuals(nat60ols)
+
+#Extraemos grados de libertad
+k <- nat60ols$rank
+n2k <- nat60ols$df.residual - k
+```
+
+**Generar prueba de Chow**
+```{r chow}
+chow.test <- function(rest,unrest)
+{
+  er <- residuals(rest)
+  eu <- residuals(unrest)
+  er2 <- sum(er^2)
+  eu2 <- sum(eu^2)
+  k <- rest$rank
+  n2k <- rest$df.residual - k
+  c <- ((er2 - eu2)/k) / (eu2 / n2k)
+  pc <- pf(c,k,n2k,lower.tail=FALSE)
+  list(c,pc,k,n2k)
+}
+
+chow.test(nat60ols,nat60rega)
+```
+El valor del estadístico de prueba es 27,12, que es muy significativo. Por lo tanto, es prueba  que los coeficientes del modelo no son constantes entre regímenes, lo que indica heterogeneidad espacial.
+
+
+**Prueba de Multiplicador de Lagrange**:
+```{r LM nat60}
+lm.LMtests(nat60rega,natq,test=c("LMerr","RLMerr","LMlag","RLMlag"))
+```
+
+Los residuos de la regresión  continúan mostrando una fuerte evidencia de autocorrelación espacial. Tanto las estadísticas de LMerr como las de LMlag son muy significativas, al igual que sus formas robustas, con una ligera ventaja a favor de la alternativa del modelo de rezago espacial.
+
+Los regímenes espaciales se pueden incorporar en los modelos de error espacial y rezago espacial de la misma manera que para MCO, por medio de los términos de interacción en la fórmula del modelo.
+
+**Estimación del *Spatial Lag* con regímenes espaciales**
+```{r SAR nat 0}
+#Se tarda bastante
+hr60rlag <- lagsarlm(HR60 ~ 0 + (ONE + RD60 + PS60 + MA60 + DV60 + UE60):(SOUTH + NOSOUTH),
+                     data=nat60a,natq)
+summary(hr60rlag)
+```
+
+Aquí nuevamente hay evidencia de una diferencia entre regímenes para los coeficientes de PS60 y UE60. Para evaluar esto de manera más rigurosa, también necesitamos los resultados del modelo de rezago espacial de la especificación restringida.
+
+**Estimación del *Spatial Lag* con regímenes espaciales (especificación restringida)**
+```{r SAR nat}
+#Se tarda bastante
+hr60lag <- lagsarlm(HR60 ~ RD60 + PS60 + MA60 +DV60 + UE60,data=nat60a,natq)
+summary(hr60lag)
+```
+
+Cuando los términos de error de regresión se autocorrelacionan espacialmente, la forma simple de la prueba de Chow que se muestra arriba ya no es válida entonces hacemos una Chow espacial.
+
+**Prueba de Chow espacial**:
+```{r Chow espacial}
+spatialchow.test <- function(rest,unrest)
+{
+  lrest <- rest$LL
+  lunrest <- unrest$LL
+  k <- rest$parameters - 2
+  spchow <- - 2.0 * (lrest - lunrest)
+  pchow <- pchisq(spchow,k,lower.tail=FALSE)
+  list(spchow,pchow,k)
+}
+
+spatialchow.test(hr60lag,hr60rlag)
+```
+
+El resultado muestra un rechazo a la hipótesis nula, sugiriendo coeficientes significativamente diferentes en cada uno de los regímenes, incluso después de corregir por el rezago espacial.
+
+
+
+## Heterogeneidad continua 
+
+### Metodo de expansión espacial
+
+Como primer ejemplo de modelado de heterogeneidad espacial continua, consideramos el método de expansión de Casetti. Este es un caso especial de un modelo con coeficientes variables, donde la variación es generada por una ecuación de expansión. En el ejemplo más simple, la ecuación de expansión es una superficie de tendencia lineal. Esto produce una ecuación final que contiene las variables explicativas originales, así como términos de interacción con las coordenadas X e Y. El cálculo produce valores de coeficientes individuales para cada ubicación, que pueden luego ser mapeados y analizados más a fondo.
+
+Un problema común en la implementación del método de expansión espacial es el alto grado de multicolinealidad que resulta de los términos de interacción. En la práctica, esto requiere el uso de algunos ajustes, como reemplazar los términos originales de interacción por sus componentes principales. En este ejemplo ignoraremos la posible multicolinealidad.
+
+**Preparar GWR**
+```{r preparar GWR}
+data(columbus)
+attach(columbus)
+```
+
+**Expansión espacial**
+```{r expansion espacial}
+colex <- lm(CRIME ~ (INC + HOVAL)*(X + Y))
+summary(colex)
+```
+
+Se muestra que muy pocos coeficientes son significativos, aunque la R-cuadrada es más que aceptable. Este es un síntoma típico de la alta multicolinealidad. Para nuestros propósitos, ignoraremos este problema por ahora y calcularemos coeficientes individuales de HOVAL para cada localidad. Esto se logra extrayendo los coeficientes relevantes del objeto de regresión usando llamando `colex$coeficientes`.
+
+**Extraer coeficientes**
+```{r}
+b <- colex$coefficients
+b[[3]]
+```
+
+```{r}
+bihoval <- b[3] + b[8] * X + b[9] * Y
+bihoval
+summary(bihoval)
+```
+
+Vemos que los coeficientes variables oscilan de -0.7348 a 0.6105 (comparando con una estimación de -0.2739 en el modelo de coeficiente fijo).
+
+```{r}
+bi <- data.frame(POLYID,bihoval)
+```
+
+### GWR
+
+Primero exploraremos los conceptos básicos de la función gwr. Esta función genera una tabla con las estimaciones de coeficientes individuales para cada variable y cada ubicación. Los argumentos de esta función son una fórmula (para la especificación del modelo), un conjunto de datos, una matriz con las coordenadas X, Y de las ubicaciones (o centroides de polígonos) y un "bandwidth". La función de la kernel por defecto es la gaussiana. El bandwidth es difícil de especificar a priori y el enfoque preferido es realizar una validación cruzada, minimizando el error de predicción del promedio de la raíz cuadrada. Por ahora, probaremos tres valores: 20, 3 y 2. A medida que se amplía el bandwidth, la superficie de los coeficientes estimados se suaviza. Con la regresión CRIME, las coordenadas como las variables X e Y del conjunto de datos incorporado y el bandwidth de 20, esto produce:
+
+```{r}
+attach(columbus)
+
+colg1 <- gwr(CRIME ~ INC + HOVAL,data=columbus, coords=cbind(X,Y),bandwidth=20)
+colg1
+```
+
+El comando `print`  proporciona un resumen de los coeficientes estimados (tenga en cuenta que el `summary` no es útil en este contexto), enumera los parámetros básicos (kernel y bandwidth) y proporciona estadísticas descriptivas para cada uno de los coeficientes estimados. Por ejemplo, las estimaciones para HOVAL oscilan entre -0.3407 y -0.1903 y no están tan lejos de la estimación global de -0,2739. La razón principal de esto es el gran bandwidth, que no permite mucha variabilidad. Comparen esto con el rango obtenido por el método de expansión espacial de -0.7348 a 0.6105.
+
+``` {r}
+colg2 <- gwr(CRIME ~ INC + HOVAL,data=columbus, coords=cbind(X,Y),bandwidth=3)
+colg2
+```
+
+```{r}
+colg3 <- gwr(CRIME ~ INC + HOVAL, data=columbus, coords=cbind(X,Y),bandwidth=2)
+colg3
+```
+
+El ancho de banda de 3 produce un rango similar al método de expansión, mientras que el ancho de banda de 2 da como resultado un rango muy amplio. Las tres distribuciones se pueden comparar con la del método de expansión por medio de un diagrama de caja.
+Para extraer el vector de coeficientes necesitamos acceder al atributo SDF de la clase gwr. Este es un marco de datos que contiene las coordenadas, coeficientes y una medida de error. Por ejemplo, para el segundo ancho de banda (2), esto parece (se han eliminado las columnas R2 y gwr.e):
+
+```{r}
+colg3$SDF
+```
+
+```{r}
+hovg3 <- colg2$SDF$HOVAL
+summary(hovg3)
+
+hovg20 <- colg1$SDF$HOVAL
+summary(hovg20)
+
+hovg2 <- colg3$SDF$HOVAL
+summary(hovg2)
+```
+
+```{r}
+boxplot(bihoval,hovg20,hovg3,hovg2, names=c("Expansion","bw=20","bw=3","bw=2"))
+```
+
+```{r}
+colgwr <- data.frame(POLYID,hovg20,hovg3,hovg2)
+#head(colgwr)
+```
+
+**Leer datos de Columbus para juntar los polígonos con nuestro análisis**:
+```{r}
+columbus_sf=st_read("./data/columbus.geojson")
+col.GWR=merge(columbus_sf, colgwr, by="POLYID")
+```
+
+**Generar mapas**:
+```{r}
+tmap_mode("plot")
+tm_shape(col.GWR) +
+  tm_borders(alpha=0.7)+
+  tm_fill(col = "hovg20",
+          alpha = 0.5,
+          style = "quantile",
+          title = "GWR Bandwidth 20") 
+```
+
+```{r}
+tmap_mode("plot")
+tm_shape(col.GWR) +
+  tm_borders(alpha=0.7)+
+  tm_fill(col = "hovg3",
+          alpha = 0.5,
+          style = "quantile",
+          title = "GWR Bandwidth 3") 
+```
+
+```{r}
+tmap_mode("plot")
+tm_shape(col.GWR) +
+  tm_borders(alpha=0.7)+
+  tm_fill(col = "hovg2",
+          alpha = 0.5,
+          style = "quantile",
+          title = "GWR Bandwidth 2") 
+```
+
