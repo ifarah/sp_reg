@@ -8,14 +8,14 @@ permalink:        pretty
 title:            Introducción a la Econometría Espacial Aplicada
 tagline:          ''
 description:      'Taller (usando R)' 
-url:              "https://ifarah.github.io/t/"
-baseurl:          "/t"
+url:              "https://ifarah.github.io/sp_reg/"
+baseurl:          "/sp_reg"
 
 
 paginate:         5
 
 # Custom vars
-version:          0.0.0
+version:          1.0.0
 
 github:
-  repo:           https://github.com/ifarah/t
+  repo:           https://github.com/ifarah/sp_reg
