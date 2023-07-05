@@ -1,7 +1,7 @@
 ---
 title: "Introducción a la Econometría Espacial Aplicada - Efectos espaciales"
 author: "Irene Farah"
-date: "Verano 2022"
+date: "Verano 2023"
 geometry: margin=1cm
 output: html_document
 ---
